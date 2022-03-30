@@ -1,6 +1,6 @@
 import { Payment } from '@/entities/Payment';
 
-export type GetParans = {
+export type GetParams = {
   userId: string;
   page: number;
   limit: number;
@@ -9,7 +9,7 @@ export type GetParans = {
 export type CreateParams = Exclude<Payment, 'id'>;
 
 export interface PaymentGatewayPort {
-  get(params: GetParans): Promise<Payment[]>;
+  get(params: GetParams): Promise<Payment[]>;
   getById(id: string): Promise<Payment>;
   create(params: CreateParams): Promise<Payment>;
   update(params: Payment): Promise<Payment>;

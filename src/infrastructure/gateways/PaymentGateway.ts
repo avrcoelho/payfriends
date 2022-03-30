@@ -1,7 +1,7 @@
 import config from '@/shared/config.json';
 import {
   CreateParams,
-  GetParans,
+  GetParams,
   PaymentGatewayPort,
 } from '@/useCases/ports/paymentGateway';
 import { Payment } from '@/entities/Payment';
@@ -11,7 +11,7 @@ export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
   private readonly paymentUrl = `${config.baseUrl}/payments`;
   private readonly userUrl = `${config.baseUrl}/users`;
 
-  async get({ userId, page, limit }: GetParans): Promise<Payment[]> {
+  async get({ userId, page, limit }: GetParams): Promise<Payment[]> {
     const { data } = await this.getRequest<Payment[]>({
       url: `${this.userUrl}/${userId}/payments`,
       params: {
