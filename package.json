@@ -5,11 +5,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "NODE_OPTIONS=--max-old-space-size=3584 webpack-cli serve --mode development",
+    "start": "NODE_OPTIONS=--max-old-space-size=3584 webpack-cli serve --mode development",
     "build": "NODE_OPTIONS=--max-old-space-size=3584 webpack --mode production",
-    "test": "jest --config=jest.config.js",
-    "test:cov": "jest --config=jest.config.js --coverage",
-    "test:watch": "jest --config=jest.config.json --watch"
+    "test": "jest --config=jest.config.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
