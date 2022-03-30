@@ -3,6 +3,7 @@ import {
   CreateParams,
   GetParams,
   PaymentGatewayPort,
+  UpdateParams,
 } from '@/useCases/ports/paymentGateway';
 import { Payment } from '@/entities/Payment';
 import { HttpClient } from '../http/httpClient/HttpClient';
@@ -37,7 +38,7 @@ export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
     return data;
   }
 
-  async update(params: Payment): Promise<Payment> {
+  async update(params: UpdateParams): Promise<Payment> {
     const { data } = await this.putRequest<Payment>({
       url: `${this.paymentUrl}/${params.id}`,
       body: params,

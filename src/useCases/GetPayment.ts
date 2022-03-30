@@ -2,7 +2,7 @@ import { Payment } from '@/entities/Payment';
 import { PaymentGatewayPort } from './ports/paymentGateway';
 import { UserGatewayPort } from './ports/userGateway';
 
-export class GetPayments {
+export class GetPayment {
   constructor(
     private readonly paymentGateway: PaymentGatewayPort,
     private readonly userGateway: UserGatewayPort,

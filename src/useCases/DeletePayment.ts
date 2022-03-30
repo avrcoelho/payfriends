@@ -1,9 +1,9 @@
 import { PaymentGatewayPort } from './ports/paymentGateway';
 
-export class DeletePayments {
+export class DeletePayment {
   constructor(private readonly paymentGateway: PaymentGatewayPort) {}
 
   async execute(id: string): Promise<void> {
-    this.paymentGateway.deleteById(id);
+    await this.paymentGateway.deleteById(id);
   }
 }

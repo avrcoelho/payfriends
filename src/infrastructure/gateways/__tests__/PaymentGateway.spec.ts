@@ -64,15 +64,13 @@ describe('PaymentGateway', () => {
   });
 
   it('should be able to create payment', async () => {
-    const payment = await paymentGateway.create(
-      paymentResponse as CreateParams,
-    );
+    const payment = await paymentGateway.create(paymentResponse as any);
 
     expect(payment).toHaveProperty('id');
   });
 
   it('should be able to update payment', async () => {
-    const payment = await paymentGateway.update(paymentResponse as Payment);
+    const payment = await paymentGateway.update(paymentResponse);
 
     expect(payment).toHaveProperty('id');
   });
