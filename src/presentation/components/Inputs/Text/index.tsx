@@ -16,7 +16,6 @@ import {
 type InputTextProps = InputHTMLAttributes<HTMLInputElement> & {
   register?: UseFormRegisterReturn;
   error?: string;
-  icon?: keyof typeof Feather;
   label: string;
   parentBgColor?: string;
 };
@@ -24,7 +23,6 @@ type InputTextProps = InputHTMLAttributes<HTMLInputElement> & {
 export const InputText = ({
   register,
   error,
-  icon,
   label,
   parentBgColor = Colors.LightGrey1,
   ...restInputProps
