@@ -4,7 +4,11 @@ export abstract class LocalStorage {
     if (!data) {
       return null;
     }
-    return JSON.parse(data) as T;
+    try {
+      return JSON.parse(String(data)) as T;
+    } catch {
+      return data as unknown as T;
+    }
   }
 
   protected saveData(key: string, value: string): void {

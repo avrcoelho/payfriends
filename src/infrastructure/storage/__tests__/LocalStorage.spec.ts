@@ -44,6 +44,13 @@ describe('Storage', () => {
     expect(itemData).toBe(null);
   });
 
+  it('should be able to returned string type', async () => {
+    testStorage.save('test', 'test');
+    const itemData = testStorage.get('test');
+
+    expect(itemData).toBe('test');
+  });
+
   it('should be able to remove data', async () => {
     const localstorageRemoveSpied = jest.spyOn(Storage.prototype, 'removeItem');
     const itemData = testStorage.delete('test-2');
