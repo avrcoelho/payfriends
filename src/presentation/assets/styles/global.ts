@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
   textarea,
   select,
   button {
-    font: 400 1.6rem "Inter",Helvetica,Arial,sans-serif;
+    font: 400 1.6rem "Roboto",Helvetica,Arial,sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {

@@ -30,6 +30,10 @@ module.exports = (env, argv) => {
           test: /\.svg$/,
           use: ['@svgr/webpack', 'url-loader'],
         },
+        {
+          test: /\.s?css$/i,
+          use: ['style-loader', 'css-loader'],
+        },
       ],
     },
     plugins: [

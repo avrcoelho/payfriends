@@ -19,7 +19,7 @@ module.exports = {
     },
   },
   moduleNameMapper: {
-    '\\.(css|png|jpe?g)$': '<rootDir>/mocks/emptyFileMock.js',
+    '\\.(s?css|png|jpe?g)$': '<rootDir>/mocks/emptyFileMock.js',
     '\\.svg$': '<rootDir>/mocks/svgMock.js',
     '@/(.*)': '<rootDir>/src/$1',
   },
