@@ -51,6 +51,7 @@ module.exports = (env, argv) => {
       overlay: true,
       contentBase: path.join(__dirname, 'public'),
       port: 3000,
+      historyApiFallback: true,
     },
   };
 };

@@ -47,7 +47,7 @@ export const Label = styled.label<LabelProps>`
 
   position: absolute;
 
-  top: -0.7rem;
+  top: -0.8rem;
   left: 1.5rem;
 
   padding: 0 0.3rem;
