@@ -1,9 +1,9 @@
 import { GlobalStyle } from '@/presentation/assets/styles/global';
-import Home from '@/presentation/pages/Home';
+import { SignIn } from '@/presentation/pages/SignIn';
 
 export const App = () => (
   <>
     <GlobalStyle />
-    <Home />
+    <SignIn />
   </>
 );

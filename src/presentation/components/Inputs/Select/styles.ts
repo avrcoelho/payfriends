@@ -10,6 +10,7 @@ export const Select = styled.select`
   border: none;
   font-weight: 400;
   outline: none;
+  background: transparent;
 
   ::placeholder {
     color: ${Colors.Grey};
