@@ -36,7 +36,7 @@ export const useController: UseController = ({ signIn }) => {
     formState: { errors },
   } = useForm<SignInParams>({ resolver });
   const [isLoading, toggleIsLoading] = useToggle(false);
-  const notification = useNotification({ position: 'bottom-center' });
+  const notification = useNotification({ position: 'top-left' });
   const navigate = useNavigate();
 
   const dispatchErrorNotification = useCallback(() => {

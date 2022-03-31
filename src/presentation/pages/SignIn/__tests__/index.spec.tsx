@@ -1,11 +1,25 @@
-import { screen, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
-import Home from '..';
+import { SignIn } from '..';
 
-describe('Home page', () => {
+jest.mock('../useController', () => ({
+  useController: () => ({
+    register: jest.fn(),
+    handleSubmit: jest.fn(),
+    errors: {},
+    onSubmit: jest.fn(),
+    isLoading: false,
+  }),
+}));
+
+describe('SignIn page', () => {
+  const props = {
+    signIn: jest.fn().mockReturnValue({ execute: jest.fn() }),
+  };
+
   it('should be able to render page', () => {
-    render(<Home />);
-
-    expect(screen.getByText('Hello, Dev :)')).toBeTruthy();
+    expect(() => {
+      render(<SignIn {...props} />);
+    }).not.toThrow();
   });
 });
