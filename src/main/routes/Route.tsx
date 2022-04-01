@@ -1,7 +1,9 @@
 import { Navigate } from 'react-router-dom';
 
 import { RoutePaths } from '@/presentation/constants/RoutePaths';
-import { makeUserIsAuthenticated } from '../factories/useCases/userIsAuthenticated';
+import { makeGetUserId } from '../factories/useCases/getUserId';
+import { useStore } from '../../presentation/store/useStore';
+import { useEffect } from 'react';
 
 interface PrivateProps {
   element: JSX.Element;
@@ -12,9 +14,16 @@ export const Route = ({
   element,
   isPrivate = false,
 }: PrivateProps): JSX.Element => {
-  const isAuthenticated = makeUserIsAuthenticated().execute();
+  const onSaveUserId = useStore(state => state.onSaveUserId);
+  const userId = makeGetUserId().execute();
 
-  return isPrivate === isAuthenticated ? (
+  useEffect(() => {
+    if (userId) {
+      onSaveUserId(userId);
+    }
+  }, [userId, onSaveUserId]);
+
+  return isPrivate === !!userId ? (
     element
   ) : (
     <Navigate

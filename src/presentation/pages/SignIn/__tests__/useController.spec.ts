@@ -27,7 +27,7 @@ describe('SignIn hook controller', () => {
     password: '1234567',
   };
   it('should ba able to redirect to payments route', async () => {
-    props.signIn().execute.mockResolvedValueOnce({});
+    props.signIn().execute.mockResolvedValueOnce({ id: '1' });
     const { result, waitForNextUpdate } = renderHook(() =>
       useController(props),
     );
@@ -41,7 +41,7 @@ describe('SignIn hook controller', () => {
   });
 
   it('should ba able to dispatch notification error', async () => {
-    props.signIn().execute.mockRejectedValueOnce({});
+    props.signIn().execute.mockRejectedValueOnce();
     const { result, waitForNextUpdate } = renderHook(() =>
       useController(props),
     );

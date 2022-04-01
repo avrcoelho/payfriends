@@ -14,6 +14,7 @@ import { useIsMounted } from '@/presentation/hooks/useIsMounted';
 import { useToggle } from '@/presentation/hooks/useToggle';
 import { useYupValidationResolver } from '@/presentation/hooks/useYupValidationResolver';
 import { signInValidator } from '@/presentation/validators/signIn';
+import { useStore } from '@/presentation/store/useStore';
 import { SignIn } from '@/useCases/SignIn';
 
 type UseControllerProps = {
@@ -38,6 +39,7 @@ export const useController: UseController = ({ signIn }) => {
   const [isLoading, toggleIsLoading] = useToggle(false);
   const notification = useNotification({ position: 'top-left' });
   const navigate = useNavigate();
+  const onSaveUserId = useStore(state => state.onSaveUserId);
 
   const dispatchErrorNotification = useCallback(() => {
     notification.error({
@@ -57,7 +59,8 @@ export const useController: UseController = ({ signIn }) => {
     async (params: SignInParams) => {
       toggleIsLoading();
       try {
-        await signIn().execute(params);
+        const { id } = await signIn().execute(params);
+        onSaveUserId(id);
         navigate(RoutePaths.Payments, { replace: true });
       } catch {
         dispatchErrorNotification();
@@ -71,6 +74,7 @@ export const useController: UseController = ({ signIn }) => {
       toggleIsLoading,
       navigate,
       signIn,
+      onSaveUserId,
     ],
   );
 
