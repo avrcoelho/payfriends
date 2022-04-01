@@ -1,3 +1,5 @@
-export const Payments: React.FC = () => {
-  return <h1>Payments</h1>;
+import { Header } from '@/presentation/components/Header';
+
+export const Payments = (): JSX.Element => {
+  return <Header />;
 };
