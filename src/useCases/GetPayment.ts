@@ -1,16 +1,16 @@
 import { Payment } from '@/entities/Payment';
+import { GetUser } from './GetUser';
 import { PaymentGatewayPort } from './ports/paymentGateway';
-import { UserGatewayPort } from './ports/userGateway';
 
 export class GetPayment {
   constructor(
     private readonly paymentGateway: PaymentGatewayPort,
-    private readonly userGateway: UserGatewayPort,
+    private readonly getUser: GetUser,
   ) {}
 
   async execute(id: string): Promise<Payment> {
     const payment = await this.paymentGateway.getById(id);
-    const user = await this.userGateway.getById(payment.id);
+    const user = await this.getUser.execute(payment.id);
     return { ...payment, user };
   }
 }

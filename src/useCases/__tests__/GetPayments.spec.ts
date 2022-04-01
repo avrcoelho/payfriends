@@ -5,6 +5,7 @@ import config from '@/shared/config.json';
 import { PaymentGateway } from '@/infrastructure/gateways/PaymentGateway';
 import { UserGateway } from '@/infrastructure/gateways/UserGateway';
 import { GetPayments } from '../GetPayments';
+import { GetUser } from '../GetUser';
 
 const paymentResponse = {
   user: {
@@ -35,6 +36,7 @@ const server = setupServer(
 let getPayments: GetPayments;
 let paymentGateway: PaymentGateway;
 let userGateway: UserGateway;
+let getUser: GetUser;
 
 describe('Get payments use case', () => {
   beforeAll(() => server.listen());
@@ -46,7 +48,8 @@ describe('Get payments use case', () => {
   beforeEach(() => {
     paymentGateway = new PaymentGateway();
     userGateway = new UserGateway();
-    getPayments = new GetPayments(paymentGateway, userGateway);
+    getUser = new GetUser(userGateway);
+    getPayments = new GetPayments(paymentGateway, getUser);
   });
 
   it('should be able to get payments', async () => {
