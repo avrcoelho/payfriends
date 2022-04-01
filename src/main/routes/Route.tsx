@@ -18,7 +18,7 @@ export const Route = ({
   const userId = makeGetUserId().execute();
 
   useEffect(() => {
-    if (userId) {
+    if (!!userId) {
       onSaveUserId(userId);
     }
   }, [userId, onSaveUserId]);
