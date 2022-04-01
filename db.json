@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "André Coelho",
+      "nickname": "avrcoelho",
+      "email": "andrevrcoelho@hotmail.com",
+      "password": "123456",
+      "avatar": "https://githug.com/avrcoelho.png"
+    },
+    {
+      "id": "2",
+      "name": "Chris Brown",
+      "nickname": "cbrown",
+      "email": "chris@test.com",
+      "password": "123456",
+      "avatar": "https://githug.com/avrcoelho.png"
+    },
+    {
+      "id": "3",
+      "name": "John Doe",
+      "nickname": "johndoe",
+      "email": "johndoe@test.com",
+      "password": "123456",
+      "avatar": "https://githug.com/avrcoelho.png"
+    }
+  ],
+  "payments": [
+    {
+      "id": "1",
+      "user": {
+        "id": "1"
+      },
+      "status": false,
+      "value": 700,
+      "timestamo": 1648770538146
+    }
+  ]
+}

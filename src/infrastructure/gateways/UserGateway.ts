@@ -7,11 +7,13 @@ export class UserGateway extends HttpClient implements UserGatewayPort {
   private readonly userUrl = `${config.baseUrl}/users`;
 
   async signIn(params: SignInParams): Promise<User> {
-    const { data } = await this.postRequest<User>({
-      body: params,
-      url: `${this.userUrl}/authentication`,
+    const {
+      data: [user],
+    } = await this.getRequest<User[]>({
+      url: this.userUrl,
+      params,
     });
-    return data;
+    return user;
   }
 
   async getById(id: string): Promise<User> {

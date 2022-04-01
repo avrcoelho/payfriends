@@ -24,7 +24,7 @@ const userResponse = {
 };
 
 const server = setupServer(
-  rest.post(`${config.baseUrl}/users/:userId/payments`, (_, res, ctx) => {
+  rest.post(`${config.baseUrl}/payments`, (_, res, ctx) => {
     return res(ctx.json(paymentResponse));
   }),
   rest.get(`${config.baseUrl}/users/:id`, (_, res, ctx) => {

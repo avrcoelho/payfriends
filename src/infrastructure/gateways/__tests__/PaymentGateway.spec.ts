@@ -2,8 +2,6 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
 import config from '@/shared/config.json';
-import { CreateParams } from '@/useCases/ports/paymentGateway';
-import { Payment } from '@/entities/Payment';
 import { PaymentGateway } from '../PaymentGateway';
 
 const paymentResponse = {
@@ -17,13 +15,13 @@ const paymentResponse = {
 };
 
 const server = setupServer(
-  rest.get(`${config.baseUrl}/users/:userId/payments`, (_, res, ctx) => {
+  rest.get(`${config.baseUrl}/payments`, (_, res, ctx) => {
     return res(ctx.json([paymentResponse]));
   }),
   rest.get(`${config.baseUrl}/payments/:id`, (_, res, ctx) => {
     return res(ctx.json(paymentResponse));
   }),
-  rest.post(`${config.baseUrl}/users/:userId/payments`, (_, res, ctx) => {
+  rest.post(`${config.baseUrl}/payments`, (_, res, ctx) => {
     return res(ctx.json(paymentResponse));
   }),
   rest.put(`${config.baseUrl}/payments/:id`, (_, res, ctx) => {

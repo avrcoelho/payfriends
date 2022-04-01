@@ -10,12 +10,12 @@ import { HttpClient } from '../http/httpClient/HttpClient';
 
 export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
   private readonly paymentUrl = `${config.baseUrl}/payments`;
-  private readonly userUrl = `${config.baseUrl}/users`;
 
   async get({ userId, page, limit }: GetParams): Promise<Payment[]> {
     const { data } = await this.getRequest<Payment[]>({
-      url: `${this.userUrl}/${userId}/payments`,
+      url: this.paymentUrl,
       params: {
+        'user.id': userId,
         page,
         limit,
       },
@@ -32,7 +32,7 @@ export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
 
   async create(params: CreateParams): Promise<Payment> {
     const { data } = await this.postRequest<Payment>({
-      url: `${this.userUrl}/${params.user.id}/payments`,
+      url: this.paymentUrl,
       body: params,
     });
     return data;

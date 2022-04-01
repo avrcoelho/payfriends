@@ -8,6 +8,7 @@ import {
 import { RoutePaths } from '@/presentation/constants/RoutePaths';
 import { Route as CustomRoute } from './Route';
 import { MakeSignIn } from '../factories/pages/SignIn';
+import { Payments } from '../../presentation/pages/Payments';
 
 export const Routes = (): JSX.Element => {
   return (
@@ -16,6 +17,10 @@ export const Routes = (): JSX.Element => {
         <Route
           path={RoutePaths.SignIn}
           element={<CustomRoute element={<MakeSignIn />} />}
+        />
+        <Route
+          path={RoutePaths.Payments}
+          element={<CustomRoute isPrivate element={<Payments />} />}
         />
         <Route path="*" element={<Navigate replace to={RoutePaths.SignIn} />} />
       </ReactDomRoutes>

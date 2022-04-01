@@ -16,8 +16,8 @@ const server = setupServer(
   rest.get(`${config.baseUrl}/users/:id`, (_, res, ctx) => {
     return res(ctx.json(userResponse));
   }),
-  rest.post(`${config.baseUrl}/users/authentication`, (_, res, ctx) => {
-    return res(ctx.json(userResponse));
+  rest.get(`${config.baseUrl}/users`, (_, res, ctx) => {
+    return res(ctx.json([userResponse]));
   }),
 );
 
