@@ -9,6 +9,16 @@ jest.mock('react-hook-notification', () => ({
   }),
 }));
 
+jest.mock('@/presentation/store/useStore', () => {
+  return {
+    useStore: jest.fn(callback =>
+      callback({
+        userId: '1',
+      }),
+    ),
+  };
+});
+
 const user = {
   id: '7',
   name: 'John Doe',

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNotification } from 'react-hook-notification';
 
 import { User } from '@/entities/User';
@@ -35,7 +35,9 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
     isSuccess: isSuccessUser,
     isLoading: isLoadingUser,
     data: user,
-  } = useQuery(() => getUser().execute(String(userId)));
+  } = useQuery(() => getUser().execute(String(userId)), {
+    manualFetch: !userId,
+  });
   const {
     isError: isErrorPayments,
     isLoading: isLoadingPayments,
@@ -74,13 +76,7 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
     if (isSuccessUser) {
       refetch();
     }
-  }, [isSuccessUser, refetch]);
-
-  useEffect(() => {
-    if (!!payments) {
-      refetch();
-    }
-  }, [payments, refetch, limit, page]);
+  }, [isSuccessUser, refetch, limit, page]);
 
   const onUpdatePage = useCallback((newPage: number) => {
     setPage(newPage);
