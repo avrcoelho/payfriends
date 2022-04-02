@@ -1,6 +1,7 @@
 import { Container, Label, Select } from './styles';
 
 type SelectLimitPerPageProps = {
+  currentLimit: number;
   onChange(value: number): void;
 };
 
@@ -11,6 +12,7 @@ const options = [
 ];
 
 export const SelectLimitPerPage = ({
+  currentLimit,
   onChange,
 }: SelectLimitPerPageProps): JSX.Element => {
   return (
@@ -19,6 +21,7 @@ export const SelectLimitPerPage = ({
       <Select
         name="per-page"
         options={options}
+        selectedValue={currentLimit}
         onChange={e => onChange(Number(e.target.value))}
       />
     </Container>

@@ -6,7 +6,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
 
-  padding-right: 5rem;
+  padding-right: 4rem;
 `;
 
 type ButtonProps = {

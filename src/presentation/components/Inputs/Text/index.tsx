@@ -14,17 +14,19 @@ import {
 } from './styles';
 
 type InputTextProps = InputHTMLAttributes<HTMLInputElement> & {
-  register?: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn | {};
   error?: string;
-  label: string;
+  label?: string;
   parentBgColor?: string;
+  className?: string;
 };
 
 export const InputText = ({
-  register,
+  register = {},
   error,
   label,
   parentBgColor = Colors.LightGrey1,
+  className = '',
   ...restInputProps
 }: InputTextProps): JSX.Element => {
   const { passwordIsVisible, togglePasswordVisibility, inputType } =
@@ -32,10 +34,12 @@ export const InputText = ({
   const isPassword = restInputProps.type === 'password';
 
   return (
-    <Container>
-      <Label htmlFor={restInputProps.name} $parentBgColor={parentBgColor}>
-        {label}
-      </Label>
+    <Container className={className}>
+      {!!label && (
+        <Label htmlFor={restInputProps.name} $parentBgColor={parentBgColor}>
+          {label}
+        </Label>
+      )}
       <InputContainer $hasError={!!error}>
         <Input
           {...register}
