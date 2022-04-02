@@ -10,6 +10,7 @@ import {
   PaymentsGrid,
 } from './styles';
 import { Controls } from './Controls';
+import { Grid } from './Grid';
 
 type PaymentsProps = {
   getUser: () => GetUser;
@@ -46,6 +47,8 @@ export const Payments = ({
                   onUpdateLimit={onUpdateLimit}
                   onUpdatePage={onUpdatePage}
                 />
+
+                <Grid payments={paymentsData.data} />
               </PaymentsGrid>
             </>
           )}

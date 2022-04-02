@@ -45,6 +45,7 @@ export const PaymentsGrid = styled.div`
   border-radius: 0.8rem;
 
   background: ${Colors.White};
+  box-shadow: 0px 2px 4px rgba(4, 38, 82, 0.06);
 
   margin-top: 2.1rem;
 `;
