@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 
-import { Payment } from '@/entities/Payment';
+import { PaymentData } from '@/useCases/ports/paymentGateway';
 import { useStore } from '../useStore';
 
 describe('useStore', () => {
@@ -27,73 +27,76 @@ describe('useStore', () => {
     expect(result.current.userId).toBeNull();
   });
 
-  const payments = [
-    {
-      user: {
+  const paymentsData = {
+    total: 2,
+    data: [
+      {
+        user: {
+          id: '7',
+        },
         id: '7',
+        value: 700,
+        timestamp: Date.now(),
+        status: true,
       },
-      id: '7',
-      value: 700,
-      timestamp: Date.now(),
-      status: true,
-    },
-    {
-      user: {
-        id: '7',
+      {
+        user: {
+          id: '7',
+        },
+        id: '0',
+        value: 700,
+        timestamp: Date.now(),
+        status: true,
       },
-      id: '0',
-      value: 700,
-      timestamp: Date.now(),
-      status: true,
-    },
-  ] as Payment[];
+    ],
+  } as PaymentData;
 
   it('should be able to set paymnets', () => {
     const { result } = renderHook(() => useStore());
 
     act(() => {
-      result.current.onSetPayments(payments);
+      result.current.onSetPaymentsData(paymentsData);
     });
 
-    expect(result.current.payments).toEqual(payments);
+    expect(result.current.paymentsData.data).toEqual(paymentsData.data);
   });
 
   it('should be able to update paymnet', () => {
     const { result } = renderHook(() => useStore());
 
     act(() => {
-      result.current.onSetPayments(payments);
+      result.current.onSetPaymentsData(paymentsData);
     });
     act(() => {
-      result.current.onUpdatePayment({ ...payments[0], value: 10 });
+      result.current.onUpdatePayment({ ...paymentsData.data[0], value: 10 });
     });
 
-    expect(result.current.payments[0].value).toBe(10);
+    expect(result.current.paymentsData.data[0].value).toBe(10);
   });
 
   it('should be able to delete paymnet', () => {
     const { result } = renderHook(() => useStore());
 
     act(() => {
-      result.current.onSetPayments(payments);
+      result.current.onSetPaymentsData(paymentsData);
     });
     act(() => {
       result.current.onDeletePayment('7');
     });
 
-    expect(result.current.payments).toHaveLength(1);
+    expect(result.current.paymentsData.data).toHaveLength(1);
   });
 
   it('should be able to update status paymnet', () => {
     const { result } = renderHook(() => useStore());
 
     act(() => {
-      result.current.onSetPayments(payments);
+      result.current.onSetPaymentsData(paymentsData);
     });
     act(() => {
       result.current.onUpdatePaymentStatus({ id: '7', status: false });
     });
 
-    expect(result.current.payments[0].status).toBeFalsy();
+    expect(result.current.paymentsData.data[0].status).toBeFalsy();
   });
 });

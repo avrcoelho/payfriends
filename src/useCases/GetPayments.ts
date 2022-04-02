@@ -1,6 +1,9 @@
-import { Payment } from '@/entities/Payment';
 import { GetUser } from './GetUser';
-import { PaymentGatewayPort, GetParams } from './ports/paymentGateway';
+import {
+  PaymentGatewayPort,
+  GetParams,
+  PaymentData,
+} from './ports/paymentGateway';
 
 export class GetPayments {
   constructor(
@@ -8,14 +11,14 @@ export class GetPayments {
     private readonly getUser: GetUser,
   ) {}
 
-  async execute(params: GetParams): Promise<Payment[]> {
-    const payments = await this.paymentGateway.get(params);
+  async execute(params: GetParams): Promise<PaymentData> {
+    const paymentsData = await this.paymentGateway.get(params);
     const paymentsSerialized = await Promise.all(
-      payments.map(async payment => {
+      paymentsData.data.map(async payment => {
         const user = await this.getUser.execute(payment.id);
         return { ...payment, user };
       }),
     );
-    return paymentsSerialized;
+    return { data: paymentsSerialized, total: paymentsData.total };
   }
 }

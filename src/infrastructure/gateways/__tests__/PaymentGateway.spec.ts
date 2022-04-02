@@ -49,13 +49,13 @@ describe('PaymentGateway', () => {
   });
 
   it('should be able to get user payments', async () => {
-    const payments = await paymentGateway.get({
+    const paymentData = await paymentGateway.get({
       userId: '7',
       page: 1,
       limit: 5,
     });
 
-    expect(payments).toHaveLength(1);
+    expect(paymentData.data).toHaveLength(1);
   });
 
   it('should be able to get payment', async () => {

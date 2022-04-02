@@ -20,8 +20,13 @@ export type UpdateStatusParams = {
   status: boolean;
 };
 
+export type PaymentData = {
+  data: Payment[];
+  total: number;
+};
+
 export interface PaymentGatewayPort {
-  get(params: GetParams): Promise<Payment[]>;
+  get(params: GetParams): Promise<PaymentData>;
   getById(id: string): Promise<Payment>;
   create(params: CreateParams): Promise<Payment>;
   update(params: UpdateParams): Promise<Payment>;

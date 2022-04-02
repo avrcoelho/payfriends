@@ -2,6 +2,7 @@ import config from '@/shared/config.json';
 import {
   CreateParams,
   GetParams,
+  PaymentData,
   PaymentGatewayPort,
   UpdateParams,
   UpdateStatusParams,
@@ -12,16 +13,16 @@ import { HttpClient } from '../http/httpClient/HttpClient';
 export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
   private readonly paymentUrl = `${config.baseUrl}/payments`;
 
-  async get({ userId, page, limit }: GetParams): Promise<Payment[]> {
-    const { data } = await this.getRequest<Payment[]>({
+  async get({ userId, page, limit }: GetParams): Promise<PaymentData> {
+    const { data, headers } = await this.getRequest<Payment[]>({
       url: this.paymentUrl,
       params: {
         'user.id': userId,
-        page,
-        limit,
+        _page: page,
+        _limit: limit,
       },
     });
-    return data;
+    return { data, total: Number(headers['x-total-count']) };
   }
 
   async getById(id: string): Promise<Payment> {

@@ -8,4 +8,5 @@ export type HttpRequest = {
 export type HttpResponse<Data = any> = {
   status: number;
   data: Data;
+  headers: Record<string, unknown>;
 };

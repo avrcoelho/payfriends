@@ -53,12 +53,12 @@ describe('Get payments use case', () => {
   });
 
   it('should be able to get payments', async () => {
-    const payments = await getPayments.execute({
+    const paymentsData = await getPayments.execute({
       limit: 5,
       page: 1,
       userId: '7',
     });
 
-    expect(payments).toHaveLength(1);
+    expect(paymentsData.data).toHaveLength(1);
   });
 });

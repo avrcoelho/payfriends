@@ -1,6 +1,7 @@
 import create from 'zustand';
 
 import { Payment } from '@/entities/Payment';
+import { PaymentData } from '@/useCases/ports/paymentGateway';
 
 type PaymentStatusProps = {
   id: string;
@@ -9,9 +10,9 @@ type PaymentStatusProps = {
 
 type StoreState = {
   userId: string | number | null;
-  payments: Payment[];
+  paymentsData: PaymentData;
   onSaveUserId(userId: string): void;
-  onSetPayments(payments: Payment[]): void;
+  onSetPaymentsData(paymentsData: PaymentData): void;
   onUpdatePayment(payment: Payment): void;
   onDeletePayment(paymentId: string): void;
   onUpdatePaymentStatus(props: PaymentStatusProps): void;
@@ -20,36 +21,48 @@ type StoreState = {
 
 export const useStore = create<StoreState>(set => ({
   userId: '',
-  payments: [],
+  paymentsData: {} as PaymentData,
   onSaveUserId: userId => {
     set(state => ({ ...state, userId }));
   },
   onDeleteUserId: () => {
     set(state => ({ ...state, userId: null }));
   },
-  onSetPayments: payments => {
-    set(state => ({ ...state, payments }));
+  onSetPaymentsData: paymentsData => {
+    set(state => ({ ...state, paymentsData }));
   },
   onUpdatePayment: payment => {
     set(state => ({
       ...state,
-      payments: state.payments.map(pmt =>
-        pmt.id === payment.id ? payment : pmt,
-      ),
+      paymentsData: {
+        ...state.paymentsData,
+        data: state.paymentsData?.data?.map(pmt =>
+          pmt.id === payment.id ? payment : pmt,
+        ),
+      },
     }));
   },
   onUpdatePaymentStatus: ({ id, status }) => {
     set(state => ({
       ...state,
-      payments: state.payments.map(pmt =>
-        pmt.id === id ? { ...pmt, status } : pmt,
-      ),
+      paymentsData: {
+        ...state.paymentsData,
+        data: state.paymentsData?.data?.map(pmt =>
+          pmt.id === id ? { ...pmt, status } : pmt,
+        ),
+      },
     }));
   },
   onDeletePayment: paymentId => {
     set(state => ({
       ...state,
-      payments: state.payments.filter(payment => payment.id !== paymentId),
+      paymentsData: {
+        ...state.paymentsData,
+        data: state.paymentsData?.data.filter(
+          payment => payment.id !== paymentId,
+        ),
+        total: state.paymentsData.total - 1,
+      },
     }));
   },
 }));
