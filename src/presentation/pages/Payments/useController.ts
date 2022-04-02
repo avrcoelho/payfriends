@@ -30,6 +30,7 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
 
   const notification = useNotification({ position: 'top-left' });
   const userId = useStore(state => state.userId);
+  const onSetPayments = useStore(state => state.onSetPayments);
   const {
     isError: isErrorUser,
     isSuccess: isSuccessUser,
@@ -73,10 +74,16 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
   }, [dispatchErrorNotification, isErrorUser, isErrorPayments]);
 
   useEffect(() => {
-    if (isSuccessUser) {
+    if (user) {
       refetch();
     }
-  }, [isSuccessUser, refetch, limit, page]);
+  }, [user, refetch, limit, page]);
+
+  useEffect(() => {
+    if (isSuccessUser && payments) {
+      onSetPayments(payments);
+    }
+  }, [isSuccessUser, payments]);
 
   const onUpdatePage = useCallback((newPage: number) => {
     setPage(newPage);

@@ -14,6 +14,7 @@ jest.mock('@/presentation/store/useStore', () => {
     useStore: jest.fn(callback =>
       callback({
         userId: '1',
+        onSetPayments: jest.fn(),
       }),
     ),
   };

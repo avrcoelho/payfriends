@@ -1,10 +1,21 @@
 import { GetUser } from '@/useCases/GetUser';
 import { GetPayments } from '@/useCases/GetPayments';
 import { Header } from '@/presentation/components/Header';
+import { Pagination } from '@/presentation/components/Pagination';
+import { SelectLimitPerPage } from '@/presentation/components/Inputs/LimitPerPage';
+import { Colors } from '@/presentation/constants/Colors';
 import { useController } from './useController';
-import { Container, Content, Title, ButtonAddPayment } from './styles';
-import { Pagination } from '../../components/Pagination';
-import { SelectLimitPerPage } from '../../components/Inputs/LimitPerPage';
+import {
+  Container,
+  Content,
+  Title,
+  ButtonAddPayment,
+  PaymentsGrid,
+  GridControls,
+  SearchContainer,
+  InputSearch,
+} from './styles';
+import { FiSearch } from 'react-icons/fi';
 
 type PaymentsProps = {
   getUser: () => GetUser;
@@ -15,7 +26,10 @@ export const Payments = ({
   getPayments,
   getUser,
 }: PaymentsProps): JSX.Element => {
-  const { user } = useController({ getPayments, getUser });
+  const { user, onUpdateLimit, onUpdatePage, page, limit } = useController({
+    getPayments,
+    getUser,
+  });
 
   return (
     <>
@@ -25,14 +39,26 @@ export const Payments = ({
           <Title>Meus pagamentos</Title>
           <ButtonAddPayment type="button">Adicionar pagamento</ButtonAddPayment>
 
-          <Pagination
-            amount={52}
-            currentPage={2}
-            limit={20}
-            onUpdatePage={() => {}}
-          />
-
-          <SelectLimitPerPage />
+          <PaymentsGrid>
+            <GridControls>
+              <SearchContainer>
+                <FiSearch size={20} color={Colors.SecondaryText} />
+                <InputSearch placeholder="Pesquisar por usuário" />
+              </SearchContainer>
+              <div>
+                <SelectLimitPerPage
+                  onChange={onUpdateLimit}
+                  currentLimit={limit}
+                />
+                <Pagination
+                  amount={52}
+                  currentPage={page}
+                  limit={limit}
+                  onUpdatePage={onUpdatePage}
+                />
+              </div>
+            </GridControls>
+          </PaymentsGrid>
         </Content>
       </Container>
     </>
