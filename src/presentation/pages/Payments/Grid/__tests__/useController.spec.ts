@@ -11,9 +11,7 @@ jest.mock('react-hook-notification', () => ({
 
 const mockExecute = jest.fn();
 const props = {
-  updatePaymentStatus: () => ({
-    execute: mockExecute,
-  }),
+  updatePaymentStatus: mockExecute,
 };
 describe('Grid hook controller', () => {
   it('should be able to dispatch notification when has error on update status', async () => {

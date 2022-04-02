@@ -4,18 +4,14 @@ import { useNotification } from 'react-hook-notification';
 import { UpdatePaymentStatus } from '@/useCases/UpdatePaymentStatus';
 import { useMutation } from '@/presentation/hooks/useMutation';
 import { useStore } from '@/presentation/store/useStore';
+import { UpdateStatusParams } from '@/useCases/ports/paymentGateway';
 
 type UseControllerProps = {
-  updatePaymentStatus(): UpdatePaymentStatus;
+  updatePaymentStatus: typeof UpdatePaymentStatus.prototype['execute'];
 };
 
 type UseControllerHook = (props: UseControllerProps) => {
   onUpdateStatus(params: UpdateStatusParams): void;
-};
-
-type UpdateStatusParams = {
-  status: boolean;
-  id: string;
 };
 
 export const useController: UseControllerHook = ({ updatePaymentStatus }) => {
@@ -23,7 +19,7 @@ export const useController: UseControllerHook = ({ updatePaymentStatus }) => {
     mutate: mutateUpdateStatus,
     isError: isErrorUpdateStatus,
     reset: resetUpdateStatus,
-  } = useMutation(updatePaymentStatus().execute);
+  } = useMutation(updatePaymentStatus);
   const notification = useNotification({ position: 'top-left' });
   const onUpdatePaymentStatus = useStore(state => state.onUpdatePaymentStatus);
   const updateStatusDataRef = useRef<UpdateStatusParams>();
@@ -43,7 +39,6 @@ export const useController: UseControllerHook = ({ updatePaymentStatus }) => {
         'Um erro ocorreu ao obter atualizar o status do pagamento!',
       );
       const { id, status } = updateStatusDataRef.current as UpdateStatusParams;
-      updateStatusDataRef.current = { id, status: !status };
       onUpdatePaymentStatus({ id, status: !status });
       updateStatusDataRef.current = undefined;
     }

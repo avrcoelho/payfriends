@@ -2,6 +2,12 @@ import { render } from '@testing-library/react';
 
 import { Grid } from '..';
 
+jest.mock('react-hook-notification', () => ({
+  useNotification: () => ({
+    error: jest.fn(),
+  }),
+}));
+
 const user = {
   id: '7',
   name: 'John Doe',
@@ -10,16 +16,21 @@ const user = {
   avatar: 'https://github.com/avrcoelho.png',
 };
 const props = {
-  user,
-  title: 'Boeleto',
-  id: '7',
-  value: 700,
-  timestamp: Date.now(),
-  status: true,
+  payments: [
+    {
+      user,
+      title: 'Boeleto',
+      id: '7',
+      value: 700,
+      timestamp: Date.now(),
+      status: true,
+    },
+  ],
+  updatePaymentStatus: jest.fn(),
 };
 
 describe('Grid component', () => {
   it('should be able to render component', () => {
-    expect(() => render(<Grid payments={[props]} />)).not.toThrow();
+    expect(() => render(<Grid {...props} />)).not.toThrow();
   });
 });

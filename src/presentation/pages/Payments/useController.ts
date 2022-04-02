@@ -15,6 +15,7 @@ type UseControllerHookProps = {
 
 type UseControllerHook = (props: UseControllerHookProps) => {
   isLoadingUser: boolean;
+  hasPaymentsData: boolean;
   isLoadingPayments: boolean;
   user: User | undefined;
   paymentsData: PaymentData | undefined;
@@ -31,6 +32,7 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
   const notification = useNotification({ position: 'top-left' });
   const userId = useStore(state => state.userId);
   const onSetPaymentsData = useStore(state => state.onSetPaymentsData);
+  const paymentsData = useStore(state => state.paymentsData);
   const {
     isError: isErrorUser,
     isSuccess: isSuccessUser,
@@ -42,7 +44,7 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
   const {
     isError: isErrorPayments,
     isLoading: isLoadingPayments,
-    data: paymentsData,
+    data,
     refetch,
   } = useQuery(
     () => getPayments().execute({ limit, page, userId: String(userId) }),
@@ -80,10 +82,10 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
   }, [user, refetch, limit, page]);
 
   useEffect(() => {
-    if (isSuccessUser && paymentsData) {
-      onSetPaymentsData(paymentsData);
+    if (isSuccessUser && data) {
+      onSetPaymentsData(data);
     }
-  }, [isSuccessUser, paymentsData]);
+  }, [isSuccessUser, data]);
 
   const onUpdatePage = useCallback((newPage: number) => {
     setPage(newPage);
@@ -92,6 +94,8 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
   const onUpdateLimit = useCallback((newLimit: number) => {
     setLimit(newLimit);
   }, []);
+
+  const hasPaymentsData = !!Object.keys(paymentsData).length;
 
   return {
     isLoadingUser,
@@ -102,5 +106,6 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
     paymentsData,
     onUpdateLimit,
     onUpdatePage,
+    hasPaymentsData,
   };
 };

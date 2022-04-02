@@ -9,12 +9,16 @@ jest.mock('react-hook-notification', () => ({
   }),
 }));
 
+let mockPaymentsData = {};
 jest.mock('@/presentation/store/useStore', () => {
   return {
     useStore: jest.fn(callback =>
       callback({
         userId: '1',
-        onSetPaymentsData: jest.fn(),
+        onSetPaymentsData: jest.fn().mockImplementation(value => {
+          mockPaymentsData = value;
+        }),
+        paymentsData: mockPaymentsData,
       }),
     ),
   };

@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { GridItem } from '..';
 
@@ -9,17 +9,30 @@ const user = {
   email: 'john@doe.com',
   avatar: 'https://github.com/avrcoelho.png',
 };
+
 const props = {
-  user,
-  title: 'Boeleto',
-  id: '7',
-  value: 700,
-  timestamp: Date.now(),
-  status: true,
+  payment: {
+    user,
+    title: 'Boeleto',
+    id: '7',
+    value: 700,
+    timestamp: Date.now(),
+    status: true,
+  },
+  onUpdateStatus: jest.fn(),
 };
 
 describe('GridItem component', () => {
   it('should be able to render component', () => {
     expect(() => render(<GridItem {...props} />)).not.toThrow();
+  });
+
+  it('should be able to change payment status', () => {
+    const mockOnChange = jest.fn();
+    render(<GridItem {...props} />);
+
+    fireEvent.click(screen.getByLabelText('Status do pagamento'));
+
+    expect(props.onUpdateStatus).toBeCalled();
   });
 });

@@ -5,27 +5,39 @@ import { formatDate } from '@/presentation/utils/formatDate';
 import { formatHour } from '@/presentation/utils/formatHour';
 import { formatValue } from '@/presentation/utils/formatValue';
 import { InputChackbox } from '@/presentation/components/Inputs/Checkbox';
+import { UpdateStatusParams } from '@/useCases/ports/paymentGateway';
 import { Column, Row } from '../styles';
 
-const Component = (props: Payment): JSX.Element => {
+type ComponentProps = {
+  onUpdateStatus(params: UpdateStatusParams): void;
+  payment: Payment;
+};
+
+const Component = ({
+  onUpdateStatus,
+  payment,
+}: ComponentProps): JSX.Element => {
   return (
     <Row>
       <Column>
-        <span>{props.user.name}</span>
-        <small>{props.user.nickname}</small>
+        <span>{payment.user.name}</span>
+        <small>{payment.user.nickname}</small>
       </Column>
       <Column>
-        <span>{props.title}</span>
+        <span>{payment.title}</span>
       </Column>
       <Column>
-        <span>{formatDate(props.timestamp)}</span>
-        <small>{formatHour(props.timestamp)}</small>
+        <span>{formatDate(payment.timestamp)}</span>
+        <small>{formatHour(payment.timestamp)}</small>
       </Column>
       <Column>
-        <span>{formatValue(props.value)}</span>
+        <span>{formatValue(payment.value)}</span>
       </Column>
       <Column>
-        <InputChackbox />
+        <InputChackbox
+          onChange={() => onUpdateStatus(payment)}
+          checked={payment.status}
+        />
       </Column>
       <Column></Column>
     </Row>
