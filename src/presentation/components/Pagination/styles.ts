@@ -7,6 +7,10 @@ export const Container = styled.div`
   align-items: center;
 
   padding-right: 4rem;
+
+  @media (max-width: 940px) {
+    padding-right: 0;
+  }
 `;
 
 type ButtonProps = {

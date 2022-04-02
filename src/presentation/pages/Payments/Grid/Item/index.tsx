@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { FiEdit2, FiXCircle } from 'react-icons/fi';
 
 import { Payment } from '@/entities/Payment';
 import { formatDate } from '@/presentation/utils/formatDate';
@@ -6,7 +7,9 @@ import { formatHour } from '@/presentation/utils/formatHour';
 import { formatValue } from '@/presentation/utils/formatValue';
 import { InputChackbox } from '@/presentation/components/Inputs/Checkbox';
 import { UpdateStatusParams } from '@/useCases/ports/paymentGateway';
+import { Colors } from '@/presentation/constants/Colors';
 import { Column, Row } from '../styles';
+import { Button, ButtonController } from './styles';
 
 type ComponentProps = {
   onUpdateStatus(params: UpdateStatusParams): void;
@@ -17,6 +20,8 @@ const Component = ({
   onUpdateStatus,
   payment,
 }: ComponentProps): JSX.Element => {
+  const valueFormated = formatValue(payment.value);
+
   return (
     <Row>
       <Column>
@@ -24,14 +29,14 @@ const Component = ({
         <small>{payment.user.nickname}</small>
       </Column>
       <Column>
-        <span>{payment.title}</span>
+        <span title={payment.title}>{payment.title}</span>
       </Column>
       <Column>
         <span>{formatDate(payment.timestamp)}</span>
         <small>{formatHour(payment.timestamp)}</small>
       </Column>
       <Column>
-        <span>{formatValue(payment.value)}</span>
+        <span title={valueFormated}>{valueFormated}</span>
       </Column>
       <Column>
         <InputChackbox
@@ -39,7 +44,16 @@ const Component = ({
           checked={payment.status}
         />
       </Column>
-      <Column></Column>
+      <Column>
+        <ButtonController>
+          <Button aria-label="Editar" title="Editar">
+            <FiEdit2 size={20} color={Colors.GrayScale} />
+          </Button>
+          <Button aria-label="Excluir" title="Excluir">
+            <FiXCircle size={20} color={Colors.GrayScale} />
+          </Button>
+        </ButtonController>
+      </Column>
     </Row>
   );
 };

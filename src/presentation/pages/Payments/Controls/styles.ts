@@ -11,9 +11,19 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-between;
   }
+
+  @media (max-width: 940px) {
+    flex-direction: column;
+    align-items: unset;
+
+    & > :last-child {
+      margin-top: 2.4rem;
+    }
+  }
 `;
 
 export const SearchContainer = styled.div`
+  width: fit-content;
   position: relative;
 
   svg {
@@ -29,4 +39,9 @@ export const InputSearch = styled(InputText)`
   div {
     padding: 0 0.8rem;
   }
+`;
+
+export const PaginationAndLimitContainer = styled.div`
+  width: fit-content;
+  margin-left: auto;
 `;

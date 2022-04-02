@@ -26,11 +26,13 @@ export const Title = styled.h1`
   font-weight: 600;
   font-size: 3.6rem;
   line-height: 4.4rem;
-  color: ${Colors.Black2};
+  color: ${Colors.GrayScale};
 
   @media (max-width: 940px) {
     font-size: 2.8rem;
     line-height: 3.6rem;
+
+    margin-bottom: 2.4rem;
   }
 `;
 
