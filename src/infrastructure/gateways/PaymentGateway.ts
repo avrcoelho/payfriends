@@ -4,6 +4,7 @@ import {
   GetParams,
   PaymentGatewayPort,
   UpdateParams,
+  UpdateStatusParams,
 } from '@/useCases/ports/paymentGateway';
 import { Payment } from '@/entities/Payment';
 import { HttpClient } from '../http/httpClient/HttpClient';
@@ -42,6 +43,14 @@ export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
     const { data } = await this.putRequest<Payment>({
       url: `${this.paymentUrl}/${params.id}`,
       body: params,
+    });
+    return data;
+  }
+
+  async updateStatus({ id, status }: UpdateStatusParams): Promise<Payment> {
+    const { data } = await this.patchRequest<Payment>({
+      url: `${this.paymentUrl}/${id}`,
+      body: { status },
     });
     return data;
   }

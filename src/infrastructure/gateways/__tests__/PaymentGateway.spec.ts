@@ -30,6 +30,9 @@ const server = setupServer(
   rest.delete(`${config.baseUrl}/payments/:id`, (_, res, ctx) => {
     return res(ctx.status(202));
   }),
+  rest.patch(`${config.baseUrl}/payments/:id`, (_, res, ctx) => {
+    return res(ctx.json(paymentResponse));
+  }),
 );
 
 let paymentGateway: PaymentGateway;
@@ -75,5 +78,14 @@ describe('PaymentGateway', () => {
 
   it('should be able to delete payment', async () => {
     await expect(paymentGateway.deleteById('7')).resolves.toBeUndefined();
+  });
+
+  it('should be able to update payment status by id', async () => {
+    const payment = await paymentGateway.updateStatus({
+      id: '7',
+      status: true,
+    });
+
+    expect(payment).toHaveProperty('id');
   });
 });
