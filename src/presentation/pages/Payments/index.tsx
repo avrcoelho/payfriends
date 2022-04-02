@@ -4,6 +4,7 @@ import { Header } from '@/presentation/components/Header';
 import { useController } from './useController';
 import { Container, Content, Title, ButtonAddPayment } from './styles';
 import { Pagination } from '../../components/Pagination';
+import { SelectLimitPerPage } from '../../components/Inputs/LimitPerPage';
 
 type PaymentsProps = {
   getUser: () => GetUser;
@@ -30,6 +31,8 @@ export const Payments = ({
             limit={20}
             onUpdatePage={() => {}}
           />
+
+          <SelectLimitPerPage />
         </Content>
       </Container>
     </>

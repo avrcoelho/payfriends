@@ -33,7 +33,9 @@ export const InputText = ({
 
   return (
     <Container>
-      <Label $parentBgColor={parentBgColor}>{label}</Label>
+      <Label htmlFor={restInputProps.name} $parentBgColor={parentBgColor}>
+        {label}
+      </Label>
       <InputContainer $hasError={!!error}>
         <Input
           {...register}

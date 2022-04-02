@@ -7,31 +7,37 @@ import { Select } from './styles';
 
 type SelectOption = {
   value: string | number;
-  label: string | number;
+  label?: string | number;
 };
 
 type InputSelectProps = InputHTMLAttributes<HTMLSelectElement> & {
-  register?: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn | {};
   error?: string;
-  label: string;
+  label?: string;
   parentBgColor?: string;
   options: SelectOption[];
+  className?: string;
 };
 
 export const InputSelect = ({
-  register,
+  register = {},
   error,
   label,
   parentBgColor = Colors.LightGrey1,
   options,
+  className = '',
   ...restInputProps
 }: InputSelectProps): JSX.Element => {
   return (
-    <Container>
-      <Label $parentBgColor={parentBgColor}>{label}</Label>
+    <Container className={className}>
+      {!!label && (
+        <Label htmlFor={restInputProps.name} $parentBgColor={parentBgColor}>
+          {label}
+        </Label>
+      )}
       <InputContainer $hasError={!!error}>
         <Select {...register} {...restInputProps}>
-          <option value=""></option>
+          {!!label && <option value=""></option>}
           {options.map(option => (
             <option key={String(option.value)} value={String(option.value)}>
               {option.label}
