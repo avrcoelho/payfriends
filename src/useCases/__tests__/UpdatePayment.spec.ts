@@ -14,6 +14,7 @@ const user = {
 };
 const paymentResponse = {
   user,
+  title: 'Boeleto',
   id: '7',
   value: 700,
   timestamp: Date.now(),
@@ -44,6 +45,7 @@ describe('Update payment use case', () => {
   it('should be able to update payment', async () => {
     const payment = await updatePayment.execute({
       id: '7',
+      title: 'Boeleto',
       status: false,
       timestamp: Date.now(),
       value: 700,

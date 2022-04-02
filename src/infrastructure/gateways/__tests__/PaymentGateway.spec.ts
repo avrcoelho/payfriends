@@ -6,6 +6,7 @@ import { PaymentGateway } from '../PaymentGateway';
 
 const paymentResponse = {
   userId: '1',
+  title: 'Boeleto',
   id: '7',
   value: 700,
   timestamp: Date.now(),

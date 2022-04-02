@@ -29,16 +29,20 @@ const user = {
 };
 
 describe('Payments page hook controller', () => {
+  const mockGetUserExecute = jest.fn();
+  const mockGetPaymentsExecute = jest.fn();
   const props = {
-    getUser: jest.fn(),
-    getPayments: jest.fn(),
-  };
+    getUser: () => ({
+      execute: mockGetUserExecute,
+    }),
+    getPayments: () => ({
+      execute: mockGetPaymentsExecute,
+    }),
+  } as any;
 
   it('should be able to dispatch notification when has error on get user data', async () => {
-    props.getUser.mockImplementationOnce(() => ({
-      execute: jest.fn().mockRejectedValueOnce(''),
-    }));
-    renderHook(() => useController(props));
+    mockGetUserExecute.mockRejectedValueOnce(''),
+      renderHook(() => useController(props));
 
     await act(() => Promise.resolve());
 
@@ -46,12 +50,8 @@ describe('Payments page hook controller', () => {
   });
 
   it('should be able to dispatch notification when has error on get payments', async () => {
-    props.getUser.mockImplementationOnce(() => ({
-      execute: jest.fn().mockResolvedValueOnce(user),
-    }));
-    props.getPayments.mockImplementationOnce(() => ({
-      execute: jest.fn().mockRejectedValueOnce(''),
-    }));
+    mockGetUserExecute.mockResolvedValueOnce(user);
+    mockGetPaymentsExecute.mockRejectedValueOnce('');
     renderHook(() => useController(props));
 
     await act(() => Promise.resolve());
@@ -60,12 +60,8 @@ describe('Payments page hook controller', () => {
   });
 
   it('should be able to return payments', async () => {
-    props.getUser.mockImplementationOnce(() => ({
-      execute: jest.fn().mockResolvedValueOnce(user),
-    }));
-    props.getPayments.mockImplementationOnce(() => ({
-      execute: jest.fn().mockResolvedValueOnce({ data: [], total: 0 }),
-    }));
+    mockGetUserExecute.mockResolvedValueOnce(user);
+    mockGetPaymentsExecute.mockResolvedValueOnce({ data: [], total: 0 });
     const { result, waitFor } = renderHook(() => useController(props));
 
     await act(() => Promise.resolve());
@@ -76,18 +72,15 @@ describe('Payments page hook controller', () => {
   });
 
   it('should be able to update page', async () => {
-    props.getUser.mockImplementationOnce(() => ({
-      execute: jest.fn().mockResolvedValueOnce(user),
-    }));
-    props.getPayments.mockImplementationOnce(() => ({
-      execute: jest.fn().mockResolvedValueOnce({ data: [], total: 0 }),
-    }));
+    mockGetUserExecute.mockResolvedValueOnce(user);
+    mockGetPaymentsExecute.mockRejectedValueOnce('');
     const { result, waitFor } = renderHook(() => useController(props));
 
     await act(() => Promise.resolve());
     act(() => {
       result.current.onUpdatePage(2);
     });
+    await act(() => Promise.resolve());
 
     await waitFor(() => {
       expect(result.current.page).toBe(2);
@@ -95,18 +88,15 @@ describe('Payments page hook controller', () => {
   });
 
   it('should be able to update limit', async () => {
-    props.getUser.mockImplementationOnce(() => ({
-      execute: jest.fn().mockResolvedValueOnce(user),
-    }));
-    props.getPayments.mockImplementationOnce(() => ({
-      execute: jest.fn().mockResolvedValueOnce({ data: [], total: 0 }),
-    }));
+    mockGetUserExecute.mockResolvedValueOnce(user);
+    mockGetPaymentsExecute.mockRejectedValueOnce({ data: [], total: 0 });
     const { result, waitFor } = renderHook(() => useController(props));
 
     await act(() => Promise.resolve());
     act(() => {
       result.current.onUpdateLimit(2);
     });
+    await act(() => Promise.resolve());
 
     await waitFor(() => {
       expect(result.current.limit).toBe(2);

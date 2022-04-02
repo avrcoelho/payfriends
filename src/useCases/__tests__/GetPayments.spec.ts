@@ -15,6 +15,7 @@ const user = {
 const paymentResponse = {
   user,
   id: '7',
+  title: 'Boeleto',
   value: 700,
   timestamp: Date.now(),
   status: true,

@@ -9,4 +9,6 @@ export enum Colors {
   White = '#ffffff',
   Blue = '#007DFE',
   Blue2 = '#002D69',
+  Border = '#CFDCE5',
+  ZebraStriping = '#F5F8FA',
 }

@@ -59,6 +59,7 @@ export const useMutation = <TData = unknown, TVariables = void>(
   const mutate = useCallback(
     async (variables: TVariables): Promise<TData | undefined> => {
       let responseData: TData | undefined;
+
       try {
         dispatch({ type: 'loading' });
         responseData = await handlerRef.current(variables);
