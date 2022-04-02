@@ -21,6 +21,10 @@ class TestHttpClient extends HttpClient {
   async delete(url: string): Promise<any> {
     return this.deleteRequest({ url });
   }
+
+  async patch(url: string): Promise<any> {
+    return this.patchRequest({ url });
+  }
 }
 
 const responseData = ['a', 'b', 'c'];
@@ -36,6 +40,9 @@ const server = setupServer(
   }),
   rest.delete(url, (req, res, ctx) => {
     return res(ctx.status(202));
+  }),
+  rest.patch(url, (req, res, ctx) => {
+    return res(ctx.json(responseData));
   }),
 );
 
@@ -70,9 +77,15 @@ describe('Axios HTTP Client', () => {
     expect(data).toEqual(responseData);
   });
 
-  it('should be able to return data on method put', async () => {
+  it('should be able to return status on method delete', async () => {
     const { status } = await testHttpClient.delete(url);
 
     expect(status).toEqual(202);
+  });
+
+  it('should be able to return data on method patch', async () => {
+    const { data } = await testHttpClient.patch(url);
+
+    expect(data).toEqual(responseData);
   });
 });

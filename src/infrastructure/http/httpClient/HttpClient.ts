@@ -58,4 +58,19 @@ export abstract class HttpClient {
       headers,
     });
   }
+
+  protected patchRequest<Response>({
+    url,
+    headers,
+    body,
+    params,
+  }: HttpRequest): Promise<HttpResponse<Response>> {
+    return this.axiosInstance({
+      method: 'PATCH',
+      url,
+      headers,
+      data: body,
+      params,
+    });
+  }
 }
