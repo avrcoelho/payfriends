@@ -4,6 +4,7 @@ import { Payment } from '@/entities/Payment';
 import { formatDate } from '@/presentation/utils/formatDate';
 import { formatHour } from '@/presentation/utils/formatHour';
 import { formatValue } from '@/presentation/utils/formatValue';
+import { InputChackbox } from '@/presentation/components/Inputs/Checkbox';
 import { Column, Row } from '../styles';
 
 const Component = (props: Payment): JSX.Element => {
@@ -23,7 +24,9 @@ const Component = (props: Payment): JSX.Element => {
       <Column>
         <span>{formatValue(props.value)}</span>
       </Column>
-      <Column>Pago</Column>
+      <Column>
+        <InputChackbox />
+      </Column>
       <Column></Column>
     </Row>
   );
