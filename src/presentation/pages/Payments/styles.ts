@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import { Colors } from '@/presentation/constants/Colors';
 import { ButtonDefault } from '@/presentation/components/Buttons/Default';
-import { InputText } from '../../components/Inputs/Text';
 
 export const Container = styled.main`
   width: 100%;
@@ -48,33 +47,4 @@ export const PaymentsGrid = styled.div`
   background: ${Colors.White};
 
   margin-top: 2.1rem;
-`;
-
-export const GridControls = styled.div`
-  padding: 1.6rem 1.4rem;
-
-  &,
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-`;
-
-export const SearchContainer = styled.div`
-  position: relative;
-
-  svg {
-    position: absolute;
-    right: 0.8rem;
-  }
-`;
-
-export const InputSearch = styled(InputText)`
-  width: 21.5rem;
-  height: 3.2rem;
-
-  div {
-    padding: 0 0.8rem;
-  }
 `;

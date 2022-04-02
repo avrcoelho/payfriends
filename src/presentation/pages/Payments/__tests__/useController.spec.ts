@@ -14,7 +14,7 @@ jest.mock('@/presentation/store/useStore', () => {
     useStore: jest.fn(callback =>
       callback({
         userId: '1',
-        onSetPayments: jest.fn(),
+        onSetPaymentsData: jest.fn(),
       }),
     ),
   };
@@ -64,14 +64,14 @@ describe('Payments page hook controller', () => {
       execute: jest.fn().mockResolvedValueOnce(user),
     }));
     props.getPayments.mockImplementationOnce(() => ({
-      execute: jest.fn().mockResolvedValueOnce([]),
+      execute: jest.fn().mockResolvedValueOnce({ data: [], total: 0 }),
     }));
     const { result, waitFor } = renderHook(() => useController(props));
 
     await act(() => Promise.resolve());
 
     await waitFor(() => {
-      expect(result.current.payments).toEqual([]);
+      expect(result.current.paymentsData).toEqual({ data: [], total: 0 });
     });
   });
 
@@ -80,7 +80,7 @@ describe('Payments page hook controller', () => {
       execute: jest.fn().mockResolvedValueOnce(user),
     }));
     props.getPayments.mockImplementationOnce(() => ({
-      execute: jest.fn().mockResolvedValueOnce([]),
+      execute: jest.fn().mockResolvedValueOnce({ data: [], total: 0 }),
     }));
     const { result, waitFor } = renderHook(() => useController(props));
 
@@ -99,7 +99,7 @@ describe('Payments page hook controller', () => {
       execute: jest.fn().mockResolvedValueOnce(user),
     }));
     props.getPayments.mockImplementationOnce(() => ({
-      execute: jest.fn().mockResolvedValueOnce([]),
+      execute: jest.fn().mockResolvedValueOnce({ data: [], total: 0 }),
     }));
     const { result, waitFor } = renderHook(() => useController(props));
 

@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNotification } from 'react-hook-notification';
 
 import { User } from '@/entities/User';
-import { Payment } from '@/entities/Payment';
-import { useQuery } from '@/presentation/hooks/useQuery';
 import { GetUser } from '@/useCases/GetUser';
+import { PaymentData } from '@/useCases/ports/paymentGateway';
 import { GetPayments } from '@/useCases/GetPayments';
+import { useQuery } from '@/presentation/hooks/useQuery';
 import { useStore } from '@/presentation/store/useStore';
 
 type UseControllerHookProps = {
@@ -17,7 +17,7 @@ type UseControllerHook = (props: UseControllerHookProps) => {
   isLoadingUser: boolean;
   isLoadingPayments: boolean;
   user: User | undefined;
-  payments: Payment[] | undefined;
+  paymentsData: PaymentData | undefined;
   page: number;
   limit: number;
   onUpdateLimit(value: number): void;
@@ -30,7 +30,7 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
 
   const notification = useNotification({ position: 'top-left' });
   const userId = useStore(state => state.userId);
-  const onSetPayments = useStore(state => state.onSetPayments);
+  const onSetPaymentsData = useStore(state => state.onSetPaymentsData);
   const {
     isError: isErrorUser,
     isSuccess: isSuccessUser,
@@ -42,7 +42,7 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
   const {
     isError: isErrorPayments,
     isLoading: isLoadingPayments,
-    data: payments,
+    data: paymentsData,
     refetch,
   } = useQuery(
     () => getPayments().execute({ limit, page, userId: String(userId) }),
@@ -80,10 +80,10 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
   }, [user, refetch, limit, page]);
 
   useEffect(() => {
-    if (isSuccessUser && payments) {
-      onSetPayments(payments);
+    if (isSuccessUser && paymentsData) {
+      onSetPaymentsData(paymentsData);
     }
-  }, [isSuccessUser, payments]);
+  }, [isSuccessUser, paymentsData]);
 
   const onUpdatePage = useCallback((newPage: number) => {
     setPage(newPage);
@@ -99,7 +99,7 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
     isLoadingPayments,
     limit,
     page,
-    payments,
+    paymentsData,
     onUpdateLimit,
     onUpdatePage,
   };
