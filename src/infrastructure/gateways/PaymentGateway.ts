@@ -17,7 +17,8 @@ export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
     const { data, headers } = await this.getRequest<Payment[]>({
       url: this.paymentUrl,
       params: {
-        'user.id': userId,
+        userId: userId,
+        _expand: 'user',
         _page: page,
         _limit: limit,
       },
@@ -28,6 +29,9 @@ export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
   async getById(id: string): Promise<Payment> {
     const { data } = await this.getRequest<Payment>({
       url: `${this.paymentUrl}/${id}`,
+      params: {
+        _expand: 'user',
+      },
     });
     return data;
   }
@@ -36,6 +40,9 @@ export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
     const { data } = await this.postRequest<Payment>({
       url: this.paymentUrl,
       body: params,
+      params: {
+        _expand: 'user',
+      },
     });
     return data;
   }
@@ -44,6 +51,9 @@ export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
     const { data } = await this.putRequest<Payment>({
       url: `${this.paymentUrl}/${params.id}`,
       body: params,
+      params: {
+        _expand: 'user',
+      },
     });
     return data;
   }
@@ -52,6 +62,9 @@ export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
     const { data } = await this.patchRequest<Payment>({
       url: `${this.paymentUrl}/${id}`,
       body: { status },
+      params: {
+        _expand: 'user',
+      },
     });
     return data;
   }

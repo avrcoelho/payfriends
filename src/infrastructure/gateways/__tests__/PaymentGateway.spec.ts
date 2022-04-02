@@ -5,9 +5,7 @@ import config from '@/shared/config.json';
 import { PaymentGateway } from '../PaymentGateway';
 
 const paymentResponse = {
-  user: {
-    id: '7',
-  },
+  userId: '1',
   id: '7',
   value: 700,
   timestamp: Date.now(),

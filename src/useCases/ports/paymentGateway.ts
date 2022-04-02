@@ -8,11 +8,11 @@ export type GetParams = {
 };
 
 export type CreateParams = Omit<Payment, 'id' | 'user'> & {
-  user: Pick<User, 'id'>;
+  userId: string;
 };
 
 export type UpdateParams = Omit<Payment, 'user'> & {
-  user: Pick<User, 'id'>;
+  userId: string;
 };
 
 export type UpdateStatusParams = {

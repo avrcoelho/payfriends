@@ -3,40 +3,31 @@ import { setupServer } from 'msw/node';
 
 import config from '@/shared/config.json';
 import { PaymentGateway } from '@/infrastructure/gateways/PaymentGateway';
-import { UserGateway } from '@/infrastructure/gateways/UserGateway';
 import { GetPayment } from '../GetPayment';
-import { GetUser } from '../GetUser';
 
-const paymentResponse = {
-  user: {
-    id: '7',
-  },
-  id: '7',
-  value: 700,
-  timestamp: Date.now(),
-  status: true,
-};
-const userResponse = {
+const user = {
   id: '7',
   name: 'John Doe',
   nickname: 'johndoe',
   email: 'john@doe.com',
   avatar: config.baseUrl,
 };
+const paymentResponse = {
+  user,
+  id: '7',
+  value: 700,
+  timestamp: Date.now(),
+  status: true,
+};
 
 const server = setupServer(
   rest.get(`${config.baseUrl}/payments/:id`, (_, res, ctx) => {
     return res(ctx.json(paymentResponse));
   }),
-  rest.get(`${config.baseUrl}/users/:id`, (_, res, ctx) => {
-    return res(ctx.json(userResponse));
-  }),
 );
 
 let getPayment: GetPayment;
 let paymentGateway: PaymentGateway;
-let userGateway: UserGateway;
-let getUser: GetUser;
 
 describe('Get payment use case', () => {
   beforeAll(() => server.listen());
@@ -47,9 +38,7 @@ describe('Get payment use case', () => {
 
   beforeEach(() => {
     paymentGateway = new PaymentGateway();
-    userGateway = new UserGateway();
-    getUser = new GetUser(userGateway);
-    getPayment = new GetPayment(paymentGateway, getUser);
+    getPayment = new GetPayment(paymentGateway);
   });
 
   it('should be able to get payment', async () => {
