@@ -23,7 +23,6 @@ export const SelectLimitPerPage = ({
         options={options}
         selectedValue={currentLimit}
         onChange={e => onChange(Number(e.target.value))}
-        value={currentLimit}
       />
     </Container>
   );
