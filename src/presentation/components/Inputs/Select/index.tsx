@@ -27,7 +27,6 @@ export const InputSelect = ({
   parentBgColor = Colors.LightGrey1,
   options,
   className = '',
-  selectedValue,
   ...restInputProps
 }: InputSelectProps): JSX.Element => {
   return (
@@ -41,11 +40,7 @@ export const InputSelect = ({
         <Select {...register} {...restInputProps}>
           {!!label && <option value=""></option>}
           {options.map(option => (
-            <option
-              key={String(option.value)}
-              selected={selectedValue === option.value}
-              value={String(option.value)}
-            >
+            <option key={String(option.value)} value={String(option.value)}>
               {option.label}
             </option>
           ))}
