@@ -22,6 +22,15 @@ export const Container = styled.div`
   }
 `;
 
+const InputsContainer = styled.form`
+  display: grid;
+  grid-template-columns: auto auto;
+
+  @media(max-width: 800px){
+   grid-template-columns: auto;
+  }
+`;
+
 export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
