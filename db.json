@@ -27,17 +27,26 @@
   ],
   "payments": [
     {
-      "id": "1",
-      "title": "Boeleto",
+      "id": "2",
+      "title": "Boeleto Boeleto Boeleto Boeleto Boeleto Boeleto",
       "userId": "1",
       "status": true,
       "value": 700,
       "timestamp": 1648770538146
     },
     {
-      "id": "2",
+      "id": "22",
       "title": "Boeleto Boeleto Boeleto Boeleto Boeleto Boeleto",
       "userId": "1",
+      "status": true,
+      "value": 700,
+      "timestamp": 1648770538146
+    },
+    {
+      "id": "21",
+      "title": "Boeleto Boeleto Boeleto Boeleto Boeleto Boeleto",
+      "userId": "1",
+      "userPaymentId": "1",
       "status": true,
       "value": 700,
       "timestamp": 1648770538146

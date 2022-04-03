@@ -20,6 +20,7 @@
     "react-modal": "^3.14.4",
     "react-router-dom": "^6.2.2",
     "styled-components": "^5.2.3",
+    "uuid": "^8.3.2",
     "yup": "^0.32.11",
     "zustand": "^3.7.1"
   },
@@ -42,6 +43,7 @@
     "@types/react-modal": "^3.13.1",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.9",
+    "@types/uuid": "^8.3.4",
     "@types/yup": "^0.29.13",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",

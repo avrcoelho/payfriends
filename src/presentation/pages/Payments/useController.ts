@@ -58,12 +58,9 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
     isLoading: isLoadingPayments,
     data,
     refetch,
-  } = useQuery(
-    () => getPayments().execute({ limit, page, userId: String(userId) }),
-    {
-      manualFetch: true,
-    },
-  );
+  } = useQuery(() => getPayments().execute({ limit, page }), {
+    manualFetch: true,
+  });
 
   const dispatchErrorNotification = useCallback(
     (message: string) => {

@@ -12,6 +12,7 @@ describe('Input select component', () => {
         options={options}
         error="its error"
         register={{} as any}
+        defaultValue=""
       />,
     );
 

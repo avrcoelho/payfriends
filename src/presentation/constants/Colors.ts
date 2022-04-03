@@ -5,6 +5,7 @@ export enum Colors {
   SecondaryText = '#69788C',
   LightGrey1 = '#F2F2F2',
   LightGrey2 = '#dedede',
+  LightGrey3 = '#F5F5F5',
   Red = '#f00',
   White = '#ffffff',
   Blue = '#007DFE',

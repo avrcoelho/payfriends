@@ -49,7 +49,6 @@ describe('PaymentGateway', () => {
 
   it('should be able to get user payments', async () => {
     const paymentData = await paymentGateway.get({
-      userId: '7',
       page: 1,
       limit: 5,
     });

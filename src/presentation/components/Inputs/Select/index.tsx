@@ -30,7 +30,7 @@ export const InputSelect = ({
       <InputContainer $hasError={!!error}>
         <Select {...register} {...restInputProps}>
           {!!label && (
-            <option value="" disabled selected>
+            <option value="" disabled>
               Selecione
             </option>
           )}

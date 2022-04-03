@@ -1,10 +1,9 @@
 import { Payment } from '@/entities/Payment';
-import { User } from '../../entities/User';
 
 export type GetParams = {
-  userId: string;
   page: number;
   limit: number;
+  searchByUserName?: string;
 };
 
 export type CreateParams = Omit<Payment, 'id' | 'user'> & {

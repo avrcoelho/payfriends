@@ -15,14 +15,18 @@ import { HttpClient } from '../http/httpClient/HttpClient';
 export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
   private readonly paymentUrl = `${config.baseUrl}/payments`;
 
-  async get({ userId, page, limit }: GetParams): Promise<PaymentData> {
+  async get({
+    page,
+    limit,
+    searchByUserName = '',
+  }: GetParams): Promise<PaymentData> {
     const { data, headers } = await this.getRequest<Payment[]>({
       url: this.paymentUrl,
       params: {
-        userId: userId,
         _expand: 'user',
         _page: page,
         _limit: limit,
+        '_userPayment.name': searchByUserName,
       },
     });
     return { data, total: Number(headers['x-total-count']) };
