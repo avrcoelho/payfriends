@@ -20,9 +20,12 @@ jest.mock('@/presentation/store/useStore', () => {
         onSetPaymentsData: jest.fn().mockImplementation(value => {
           mockPaymentsData = value;
         }),
+        onSetModalRef: jest.fn(),
         onRefetch: mockOnRefetch,
         paymentsData: mockPaymentsData,
         hasRefetch: mockHasRefetch,
+        payment: undefined,
+        modalType: undefined,
       }),
     ),
   };

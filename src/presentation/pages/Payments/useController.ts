@@ -1,12 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, RefObject } from 'react';
 import { useNotification } from 'react-hook-notification';
 
 import { User } from '@/entities/User';
+import { Payment } from '@/entities/Payment';
 import { GetUser } from '@/useCases/GetUser';
 import { PaymentData } from '@/useCases/ports/paymentGateway';
 import { GetPayments } from '@/useCases/GetPayments';
 import { useQuery } from '@/presentation/hooks/useQuery';
 import { useStore } from '@/presentation/store/useStore';
+import { ModalType } from '@/presentation/types/ModalType';
+import { ModalHandles } from '@/presentation/components/Modal';
 
 type UseControllerHookProps = {
   getUser: () => GetUser;
@@ -21,6 +24,9 @@ type UseControllerHook = (props: UseControllerHookProps) => {
   paymentsData: PaymentData | undefined;
   page: number;
   limit: number;
+  modalType: ModalType;
+  paymentSelected: Payment | undefined;
+  modalRef: RefObject<ModalHandles>;
   onUpdateLimit(value: number): void;
   onUpdatePage(value: number): void;
 };
@@ -35,6 +41,10 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
   const hasRefetch = useStore(state => state.hasRefetch);
   const onRefetchStore = useStore(state => state.onRefetch);
   const paymentsData = useStore(state => state.paymentsData);
+  const onSetModalRef = useStore(state => state.onSetModalRef);
+  const modalType = useStore(state => state.modalType);
+  const paymentSelected = useStore(state => state.payment);
+  const modalRef = useRef<ModalHandles>(null);
   const {
     isError: isErrorUser,
     isSuccess: isSuccessUser,
@@ -96,6 +106,10 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
     }
   }, [isSuccessUser, data]);
 
+  useEffect(() => {
+    onSetModalRef(modalRef.current);
+  }, [onSetModalRef]);
+
   const onUpdatePage = useCallback((newPage: number) => {
     setPage(newPage);
   }, []);
@@ -120,5 +134,8 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
     onUpdateLimit,
     onUpdatePage,
     hasPaymentsData,
+    modalType,
+    paymentSelected,
+    modalRef,
   };
 };

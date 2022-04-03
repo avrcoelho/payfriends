@@ -1,7 +1,9 @@
 import { GetUser } from '@/useCases/GetUser';
 import { GetPayments } from '@/useCases/GetPayments';
+import { DeletePayment } from '@/useCases/DeletePayment';
 import { Header } from '@/presentation/components/Header';
 import { UpdatePaymentStatus } from '@/useCases/UpdatePaymentStatus';
+import { Modal } from '@/presentation/components/Modal';
 import { useController } from './useController';
 import {
   Container,
@@ -12,17 +14,20 @@ import {
 } from './styles';
 import { Controls } from './Controls';
 import { Grid } from './Grid';
+import { Delete } from './Delete';
 
 type PaymentsProps = {
   getUser(): GetUser;
   getPayments(): GetPayments;
   updatePaymentStatus: typeof UpdatePaymentStatus.prototype['execute'];
+  deletePayment: typeof DeletePayment.prototype['execute'];
 };
 
 export const Payments = ({
   getPayments,
   getUser,
   updatePaymentStatus,
+  deletePayment,
 }: PaymentsProps): JSX.Element => {
   const {
     user,
@@ -32,6 +37,8 @@ export const Payments = ({
     limit,
     paymentsData,
     hasPaymentsData,
+    modalType,
+    modalRef,
   } = useController({
     getPayments,
     getUser,
@@ -67,6 +74,10 @@ export const Payments = ({
           )}
         </Content>
       </Container>
+
+      <Modal ref={modalRef}>
+        {modalType === 'delete' && <Delete deletePayment={deletePayment} />}
+      </Modal>
     </>
   );
 };
