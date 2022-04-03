@@ -109,4 +109,29 @@ describe('useStore', () => {
 
     expect(result.current.hasRefetch).toBeTruthy();
   });
+
+  it('should be able to get payment', () => {
+    const { result } = renderHook(() => useStore());
+
+    act(() => {
+      result.current.onSetPaymentsData(paymentsData);
+    });
+    act(() => {
+      result.current.onGetPayment('7', 'delete');
+    });
+
+    expect(result.current.payment?.id).toBe('7');
+  });
+  it('should be able to set modalRef', () => {
+    const { result } = renderHook(() => useStore());
+
+    act(() => {
+      result.current.onSetModalRef({
+        closeModal: jest.fn(),
+        openModal: jest.fn(),
+      });
+    });
+
+    expect(result.current.modalRef).toHaveProperty('closeModal');
+  });
 });
