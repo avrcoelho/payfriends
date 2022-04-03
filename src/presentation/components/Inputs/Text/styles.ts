@@ -11,6 +11,18 @@ export const Container = styled.div`
   & + div {
     margin-top: 3.6rem;
   }
+
+  input:focus + label {
+    transform: scale(0.8);
+    top: -0.9rem;
+    left: 1rem;
+  }
+
+  input:not(:placeholder-shown) + label {
+    transform: scale(0.8);
+    top: -1rem;
+    left: 1rem;
+  }
 `;
 
 type InputContainerProps = {
@@ -40,15 +52,17 @@ type LabelProps = {
 };
 
 export const Label = styled.label<LabelProps>`
-  font-size: 1.2rem;
-  line-height: 1.6rem;
+  font-size: 1.6rem;
+  line-height: 2rem;
   letter-spacing: 0.4px;
   color: rgba(0, 0, 0, 0.6);
 
   position: absolute;
 
-  top: -0.8rem;
   left: 1.5rem;
+  top: 1.6rem;
+  transform: scale(1);
+  transition: all 0.2s;
 
   padding: 0 0.3rem;
   background-color: ${({ $parentBgColor }) => $parentBgColor};

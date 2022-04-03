@@ -35,17 +35,18 @@ export const InputText = ({
 
   return (
     <Container className={className}>
-      {!!label && (
-        <Label htmlFor={restInputProps.name} $parentBgColor={parentBgColor}>
-          {label}
-        </Label>
-      )}
       <InputContainer $hasError={!!error}>
         <Input
           {...register}
           {...restInputProps}
           type={isPassword ? inputType : restInputProps.type}
+          placeholder=" "
         />
+        {!!label && (
+          <Label htmlFor={restInputProps.name} $parentBgColor={parentBgColor}>
+            {label}
+          </Label>
+        )}
 
         {isPassword && (
           <ButtonTogglePassword
