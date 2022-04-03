@@ -39,7 +39,7 @@ export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
   async create(params: CreateParams): Promise<Payment> {
     const { data } = await this.postRequest<Payment>({
       url: this.paymentUrl,
-      body: params,
+      body: { ...params, id: String(Date.now()) },
       params: {
         _expand: 'user',
       },

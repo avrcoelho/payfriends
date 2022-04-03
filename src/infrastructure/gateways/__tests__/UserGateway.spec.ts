@@ -48,4 +48,10 @@ describe('UserGateway', () => {
 
     expect(userData).toHaveProperty('id');
   });
+
+  it('should be able to get all users', async () => {
+    const userData = await userGateway.get();
+
+    expect(userData).toHaveLength(1);
+  });
 });
