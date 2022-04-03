@@ -15,4 +15,10 @@ export const Select = styled.select`
   ::placeholder {
     color: ${Colors.Grey};
   }
+
+  & + label {
+    transform: scale(0.8);
+    top: -1rem;
+    left: 1rem;
+  }
 `;

@@ -16,36 +16,32 @@ jest.mock('../useController', () => ({
 describe('Input text component', () => {
   it('should be able to render input password', () => {
     mockInputType = 'password';
-    render(
+    const { container } = render(
       <InputText
         label="Test"
         name="test"
-        placeholder="Password"
         type="password"
         register={{} as any}
       />,
     );
+    const inputElement = container.querySelector('input') as HTMLInputElement;
 
-    expect(screen.getByPlaceholderText(/password/i).getAttribute('type')).toBe(
-      'password',
-    );
+    expect(inputElement.getAttribute('type')).toBe('password');
   });
 
   it('should be able to render input password', () => {
     mockInputType = 'password';
-    render(
+    const { container } = render(
       <InputText
         label="Test"
         name="test"
-        placeholder="Password"
         type="password"
         register={{} as any}
       />,
     );
+    const inputElement = container.querySelector('input') as HTMLInputElement;
 
-    expect(screen.getByPlaceholderText(/password/i).getAttribute('type')).toBe(
-      'password',
-    );
+    expect(inputElement.getAttribute('type')).toBe('password');
   });
 
   it('should be able to toggle password visibility', () => {

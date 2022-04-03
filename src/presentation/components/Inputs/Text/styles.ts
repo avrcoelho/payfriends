@@ -11,18 +11,6 @@ export const Container = styled.div`
   & + div {
     margin-top: 3.6rem;
   }
-
-  input:focus + label {
-    transform: scale(0.8);
-    top: -0.9rem;
-    left: 1rem;
-  }
-
-  input:not(:placeholder-shown) + label {
-    transform: scale(0.8);
-    top: -1rem;
-    left: 1rem;
-  }
 `;
 
 type InputContainerProps = {
@@ -80,6 +68,13 @@ export const Input = styled.input`
 
   ::placeholder {
     color: ${Colors.Grey};
+  }
+
+  :focus + label,
+  :not(:placeholder-shown) + label {
+    transform: scale(0.8);
+    top: -1rem;
+    left: 1rem;
   }
 `;
 

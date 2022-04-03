@@ -37,10 +37,10 @@ export const InputText = ({
     <Container className={className}>
       <InputContainer $hasError={!!error}>
         <Input
+          placeholder=" "
           {...register}
           {...restInputProps}
           type={isPassword ? inputType : restInputProps.type}
-          placeholder=" "
         />
         {!!label && (
           <Label htmlFor={restInputProps.name} $parentBgColor={parentBgColor}>

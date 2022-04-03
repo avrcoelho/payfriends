@@ -27,20 +27,24 @@ export const InputSelect = ({
 }: InputSelectProps): JSX.Element => {
   return (
     <Container className={className}>
-      {!!label && (
-        <Label htmlFor={restInputProps.name} $parentBgColor={parentBgColor}>
-          {label}
-        </Label>
-      )}
       <InputContainer $hasError={!!error}>
         <Select {...register} {...restInputProps}>
-          {!!label && <option value=""></option>}
+          {!!label && (
+            <option value="" disabled selected>
+              Selecione
+            </option>
+          )}
           {options.map(option => (
             <option key={String(option.value)} value={String(option.value)}>
               {option.label}
             </option>
           ))}
         </Select>
+        {!!label && (
+          <Label htmlFor={restInputProps.name} $parentBgColor={parentBgColor}>
+            {label}
+          </Label>
+        )}
       </InputContainer>
 
       {!!error && <ErrorText>{error}</ErrorText>}
