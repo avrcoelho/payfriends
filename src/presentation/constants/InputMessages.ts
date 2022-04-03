@@ -1,4 +1,4 @@
 export enum InputMessages {
-  RequiredFiel = 'Campo obrigatório',
+  RequiredField = 'Campo obrigatório',
   InvalidEmail = 'E-mail inválido',
 }

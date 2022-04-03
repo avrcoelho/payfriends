@@ -8,7 +8,7 @@ describe('useYupValidationResolver hook', () => {
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email(InputMessages.InvalidEmail)
-      .required(InputMessages.RequiredFiel),
+      .required(InputMessages.RequiredField),
   });
 
   it('should be able to return yup errors', async () => {

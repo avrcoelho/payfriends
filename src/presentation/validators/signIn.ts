@@ -6,7 +6,7 @@ export const signInValidator = yup.object({
   email: yup
     .string()
     .email(InputMessages.InvalidEmail)
-    .required(InputMessages.RequiredFiel)
+    .required(InputMessages.RequiredField)
     .trim(),
-  password: yup.string().required(InputMessages.RequiredFiel),
+  password: yup.string().required(InputMessages.RequiredField),
 });

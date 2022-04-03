@@ -32,6 +32,8 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
   const notification = useNotification({ position: 'top-left' });
   const userId = useStore(state => state.userId);
   const onSetPaymentsData = useStore(state => state.onSetPaymentsData);
+  const hasRefetch = useStore(state => state.hasRefetch);
+  const onRefetchStore = useStore(state => state.onRefetch);
   const paymentsData = useStore(state => state.paymentsData);
   const {
     isError: isErrorUser,
@@ -82,6 +84,13 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
   }, [user, refetch, limit, page]);
 
   useEffect(() => {
+    if (hasRefetch) {
+      refetch();
+      onRefetchStore();
+    }
+  }, [hasRefetch, onRefetchStore]);
+
+  useEffect(() => {
     if (isSuccessUser && data) {
       onSetPaymentsData(data);
     }
@@ -91,9 +100,13 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
     setPage(newPage);
   }, []);
 
-  const onUpdateLimit = useCallback((newLimit: number) => {
-    setLimit(newLimit);
-  }, []);
+  const onUpdateLimit = useCallback(
+    (newLimit: number) => {
+      setLimit(newLimit);
+      onUpdatePage(1);
+    },
+    [onUpdatePage],
+  );
 
   const hasPaymentsData = !!Object.keys(paymentsData).length;
 

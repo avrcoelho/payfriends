@@ -99,4 +99,14 @@ describe('useStore', () => {
 
     expect(result.current.paymentsData.data[0].status).toBeFalsy();
   });
+
+  it('should be able to set has refetch true', () => {
+    const { result } = renderHook(() => useStore());
+
+    act(() => {
+      result.current.onRefetch();
+    });
+
+    expect(result.current.hasRefetch).toBeTruthy();
+  });
 });

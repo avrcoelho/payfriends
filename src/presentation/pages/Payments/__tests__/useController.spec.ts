@@ -10,6 +10,8 @@ jest.mock('react-hook-notification', () => ({
 }));
 
 let mockPaymentsData = {};
+let mockHasRefetch = false;
+const mockOnRefetch = jest.fn();
 jest.mock('@/presentation/store/useStore', () => {
   return {
     useStore: jest.fn(callback =>
@@ -18,7 +20,9 @@ jest.mock('@/presentation/store/useStore', () => {
         onSetPaymentsData: jest.fn().mockImplementation(value => {
           mockPaymentsData = value;
         }),
+        onRefetch: mockOnRefetch,
         paymentsData: mockPaymentsData,
+        hasRefetch: mockHasRefetch,
       }),
     ),
   };
@@ -45,8 +49,8 @@ describe('Payments page hook controller', () => {
   } as any;
 
   it('should be able to dispatch notification when has error on get user data', async () => {
-    mockGetUserExecute.mockRejectedValueOnce(''),
-      renderHook(() => useController(props));
+    mockGetUserExecute.mockRejectedValueOnce('');
+    renderHook(() => useController(props));
 
     await act(() => Promise.resolve());
 
@@ -105,5 +109,24 @@ describe('Payments page hook controller', () => {
     await waitFor(() => {
       expect(result.current.limit).toBe(2);
     });
+  });
+
+  it('should not be able to call refetch when do not has refetch store', async () => {
+    mockGetUserExecute.mockResolvedValueOnce(user);
+    renderHook(() => useController(props));
+
+    await act(() => Promise.resolve());
+
+    expect(mockOnRefetch).not.toBeCalled();
+  });
+
+  it('should be able to call refetch when has refetch store', async () => {
+    mockGetUserExecute.mockResolvedValueOnce(user);
+    mockHasRefetch = true;
+    renderHook(() => useController(props));
+
+    await act(() => Promise.resolve());
+
+    expect(mockOnRefetch).toBeCalled();
   });
 });

@@ -10,8 +10,10 @@ type PaymentStatusProps = {
 
 type StoreState = {
   userId: string | number | null;
+  hasRefetch: boolean;
   paymentsData: PaymentData;
   onSaveUserId(userId: string): void;
+  onRefetch(): void;
   onSetPaymentsData(paymentsData: PaymentData): void;
   onUpdatePayment(payment: Payment): void;
   onDeletePayment(paymentId: string): void;
@@ -21,6 +23,7 @@ type StoreState = {
 
 export const useStore = create<StoreState>(set => ({
   userId: '',
+  hasRefetch: false,
   paymentsData: {} as PaymentData,
   onSaveUserId: userId => {
     set(state => ({ ...state, userId }));
@@ -30,6 +33,9 @@ export const useStore = create<StoreState>(set => ({
   },
   onSetPaymentsData: paymentsData => {
     set(state => ({ ...state, paymentsData }));
+  },
+  onRefetch: () => {
+    set(state => ({ ...state, hasRefetch: !state.hasRefetch }));
   },
   onUpdatePayment: payment => {
     set(state => ({

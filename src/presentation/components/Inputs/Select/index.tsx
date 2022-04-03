@@ -2,13 +2,9 @@ import { InputHTMLAttributes } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 import { Colors } from '@/presentation/constants/Colors';
+import { SelectOption } from '@/presentation/types/SelectOption';
 import { Container, InputContainer, ErrorText, Label } from '../Text/styles';
 import { Select } from './styles';
-
-type SelectOption = {
-  value: string | number;
-  label?: string | number;
-};
 
 type InputSelectProps = InputHTMLAttributes<HTMLSelectElement> & {
   register?: UseFormRegisterReturn | {};
