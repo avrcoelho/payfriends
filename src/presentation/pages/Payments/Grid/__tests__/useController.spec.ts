@@ -9,6 +9,21 @@ jest.mock('react-hook-notification', () => ({
   }),
 }));
 
+const mockOnGetPayment = jest.fn();
+jest.mock('@/presentation/store/useStore', () => {
+  return {
+    useStore: jest.fn(callback =>
+      callback({
+        onUpdatePaymentStatus: jest.fn(),
+        onGetPayment: mockOnGetPayment,
+        modalRef: {
+          openModal: jest.fn(),
+        },
+      }),
+    ),
+  };
+});
+
 const mockExecute = jest.fn();
 const props = {
   updatePaymentStatus: mockExecute,
@@ -39,5 +54,21 @@ describe('Grid hook controller', () => {
       expect(mockNotificationError).not.toBeCalled();
     });
     await act(() => Promise.resolve());
+  });
+
+  it('should be able to update', async () => {
+    const { result } = renderHook(() => useController(props as any));
+
+    result.current.onUpdate('7');
+
+    expect(mockOnGetPayment).toBeCalled();
+  });
+
+  it('should be able to delete', async () => {
+    const { result } = renderHook(() => useController(props as any));
+
+    result.current.onDelete('7');
+
+    expect(mockOnGetPayment).toBeCalled();
   });
 });

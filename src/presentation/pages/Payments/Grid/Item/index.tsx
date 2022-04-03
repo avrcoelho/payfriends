@@ -13,12 +13,16 @@ import { Button, ButtonController } from './styles';
 
 type ComponentProps = {
   onUpdateStatus(params: UpdateStatusParams): void;
+  onDelete(paymentId: string): void;
+  onUpdate(paymentId: string): void;
   payment: Payment;
 };
 
 const Component = ({
   onUpdateStatus,
   payment,
+  onDelete,
+  onUpdate,
 }: ComponentProps): JSX.Element => {
   const valueFormated = formatValue(payment.value);
 
@@ -46,10 +50,18 @@ const Component = ({
       </Column>
       <Column>
         <ButtonController>
-          <Button aria-label="Editar" title="Editar">
+          <Button
+            onClick={() => onUpdate(payment.id)}
+            aria-label="Editar"
+            title="Editar"
+          >
             <FiEdit2 size={20} color={Colors.GrayScale} />
           </Button>
-          <Button aria-label="Excluir" title="Excluir">
+          <Button
+            onClick={() => onDelete(payment.id)}
+            aria-label="Excluir"
+            title="Excluir"
+          >
             <FiXCircle size={20} color={Colors.GrayScale} />
           </Button>
         </ButtonController>

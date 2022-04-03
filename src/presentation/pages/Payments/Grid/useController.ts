@@ -12,6 +12,8 @@ type UseControllerProps = {
 
 type UseControllerHook = (props: UseControllerProps) => {
   onUpdateStatus(params: UpdateStatusParams): void;
+  onDelete(paymentId: string): void;
+  onUpdate(paymentId: string): void;
 };
 
 export const useController: UseControllerHook = ({ updatePaymentStatus }) => {
@@ -22,6 +24,8 @@ export const useController: UseControllerHook = ({ updatePaymentStatus }) => {
   } = useMutation(updatePaymentStatus);
   const notification = useNotification({ position: 'top-left' });
   const onUpdatePaymentStatus = useStore(state => state.onUpdatePaymentStatus);
+  const modalRef = useStore(state => state.modalRef);
+  const onGetPayment = useStore(state => state.onGetPayment);
   const updateStatusDataRef = useRef<UpdateStatusParams>();
 
   const dispatchErrorNotification = useCallback(
@@ -54,7 +58,25 @@ export const useController: UseControllerHook = ({ updatePaymentStatus }) => {
     [mutateUpdateStatus, onUpdatePaymentStatus],
   );
 
+  const onDelete = useCallback(
+    (paymentId: string) => {
+      onGetPayment(paymentId, 'delete');
+      modalRef?.openModal();
+    },
+    [onGetPayment, modalRef],
+  );
+
+  const onUpdate = useCallback(
+    (paymentId: string) => {
+      onGetPayment(paymentId, 'update');
+      modalRef?.openModal();
+    },
+    [onGetPayment, modalRef],
+  );
+
   return {
     onUpdateStatus,
+    onDelete,
+    onUpdate,
   };
 };

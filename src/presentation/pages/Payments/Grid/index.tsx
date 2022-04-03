@@ -13,7 +13,9 @@ export const Grid = ({
   payments,
   updatePaymentStatus,
 }: GridPropd): JSX.Element => {
-  const { onUpdateStatus } = useController({ updatePaymentStatus });
+  const { onUpdateStatus, onDelete, onUpdate } = useController({
+    updatePaymentStatus,
+  });
 
   return (
     <Container>
@@ -31,6 +33,8 @@ export const Grid = ({
           key={payment.id}
           onUpdateStatus={onUpdateStatus}
           payment={payment}
+          onDelete={onDelete}
+          onUpdate={onUpdate}
         />
       ))}
     </Container>
