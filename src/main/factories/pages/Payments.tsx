@@ -3,6 +3,7 @@ import { makeGetUser } from '../useCases/getUser';
 import { makeGetPayments } from '../useCases/getPayments';
 import { makeUpdatePaymentStatus } from '../useCases/updatePaymentStatus';
 import { makeDeletePayment } from '../useCases/deletePayment';
+import { makeSignOut } from '../useCases/signOut';
 
 export const MakePayments = (): JSX.Element => {
   return (
@@ -11,6 +12,7 @@ export const MakePayments = (): JSX.Element => {
       getUser={makeGetUser}
       updatePaymentStatus={makeUpdatePaymentStatus}
       deletePayment={makeDeletePayment}
+      signOut={makeSignOut}
     />
   );
 };

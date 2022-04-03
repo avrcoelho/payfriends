@@ -4,6 +4,7 @@ import { DeletePayment } from '@/useCases/DeletePayment';
 import { Header } from '@/presentation/components/Header';
 import { UpdatePaymentStatus } from '@/useCases/UpdatePaymentStatus';
 import { Modal } from '@/presentation/components/Modal';
+import { SignOut } from '@/useCases/SignOut';
 import { useController } from './useController';
 import {
   Container,
@@ -19,6 +20,7 @@ import { Delete } from './Delete';
 type PaymentsProps = {
   getUser(): GetUser;
   getPayments(): GetPayments;
+  signOut(): SignOut;
   updatePaymentStatus: typeof UpdatePaymentStatus.prototype['execute'];
   deletePayment: typeof DeletePayment.prototype['execute'];
 };
@@ -28,6 +30,7 @@ export const Payments = ({
   getUser,
   updatePaymentStatus,
   deletePayment,
+  signOut,
 }: PaymentsProps): JSX.Element => {
   const {
     user,
@@ -46,7 +49,7 @@ export const Payments = ({
 
   return (
     <>
-      {!!user && <Header user={user} />}
+      {!!user && <Header user={user} signOut={signOut} />}
       <Container>
         <Content>
           {hasPaymentsData && !!paymentsData && (

@@ -22,3 +22,10 @@ export const Container = styled.header`
 export const Avatar = styled.img`
   border-radius: 50%;
 `;
+
+export const Button = styled.button`
+  width: 4rem;
+  height: 2rem;
+
+  color: ${Colors.Red};
+`;
