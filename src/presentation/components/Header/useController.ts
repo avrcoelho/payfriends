@@ -27,7 +27,7 @@ export const useController: UseControllerHook = ({ signOut }) => {
     onDeleteUserId();
     signOut().execute();
     navigate(RoutePaths.SignIn, { replace: true });
-  }, [signOut, onDeleteUserId]);
+  }, [signOut, onDeleteUserId, navigate]);
 
   return {
     popoverRef,

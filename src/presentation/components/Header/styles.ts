@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Colors } from '@/presentation/constants/Colors';
 
@@ -13,17 +13,29 @@ export const Container = styled.header`
   padding: 0 3rem;
   background-color: ${Colors.Blue2};
 
+  position: fixed;
+  top: 0;
+
   @media (max-width: 940px) {
     height: 7rem;
     padding: 0 1rem;
   }
 `;
 
-export const Avatar = styled.img`
+const profileStyles = css`
   border-radius: 50%;
+  cursor: pointer;
 `;
 
-export const Button = styled.button`
+export const ButtonProfile = styled.button`
+  ${profileStyles}
+`;
+
+export const Avatar = styled.img`
+  ${profileStyles}
+`;
+
+export const ButtonSignOut = styled.button`
   width: 4rem;
   height: 2rem;
 

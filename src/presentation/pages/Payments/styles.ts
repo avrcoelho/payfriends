@@ -5,12 +5,16 @@ import { ButtonDefault } from '@/presentation/components/Buttons/Default';
 
 export const Container = styled.main`
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 9rem);
   padding: 6.5rem 1rem 0;
   background: ${Colors.LightGrey1};
+  margin-top: 9rem;
 
   @media (max-width: 940px) {
+    min-height: calc(100vh - 7rem);
+
     padding: 3.5rem 1rem 0;
+    margin-top: 7rem;
   }
 `;
 
