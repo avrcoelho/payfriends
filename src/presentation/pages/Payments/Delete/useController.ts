@@ -1,27 +1,27 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useNotification } from 'react-hook-notification';
 
 import { useMutation } from '@/presentation/hooks/useMutation';
 import { useStore } from '@/presentation/store/useStore';
 import { DeletePayment } from '@/useCases/DeletePayment';
+import { Payment } from '@/entities/Payment';
 
 type UseControllerHookProps = {
   deletePayment: typeof DeletePayment.prototype['execute'];
-  onCloseModal(): void;
 };
 
 type UseControllerHook = (props: UseControllerHookProps) => {
   isLoading: boolean;
+  payment: Payment | undefined;
   onDelete(id: string): void;
+  onCloseModal(): void;
 };
 
-export const useController: UseControllerHook = ({
-  deletePayment,
-  onCloseModal,
-}) => {
+export const useController: UseControllerHook = ({ deletePayment }) => {
   const notification = useNotification({ position: 'top-left' });
   const onDeletePaymentStore = useStore(state => state.onDeletePayment);
-  const paymentIdRef = useRef<string>();
+  const payment = useStore(state => state.payment);
+  const modalRef = useStore(state => state.modalRef);
 
   const { mutate, isError, reset, isLoading, isSuccess } =
     useMutation(deletePayment);
@@ -44,6 +44,10 @@ export const useController: UseControllerHook = ({
     [notification],
   );
 
+  const onCloseModal = useCallback(() => {
+    modalRef?.closeModal();
+  }, [modalRef]);
+
   useEffect(() => {
     if (isError) {
       dispatchErrorNotification(
@@ -55,9 +59,8 @@ export const useController: UseControllerHook = ({
 
   useEffect(() => {
     if (isSuccess) {
-      onDeletePaymentStore(String(paymentIdRef.current));
+      onDeletePaymentStore(String(payment?.id));
       dispatchSuccessNotification('Pagamento excluído!');
-      paymentIdRef.current = undefined;
       onCloseModal();
     }
   }, [
@@ -77,5 +80,7 @@ export const useController: UseControllerHook = ({
   return {
     onDelete,
     isLoading,
+    payment,
+    onCloseModal,
   };
 };

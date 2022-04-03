@@ -11,11 +11,16 @@ jest.mock('react-hook-notification', () => ({
   }),
 }));
 
+const mockCloseModal = jest.fn();
 jest.mock('@/presentation/store/useStore', () => {
   return {
     useStore: jest.fn(callback =>
       callback({
         onDeletePayment: jest.fn(),
+        payment: { id: '123' },
+        modalRef: {
+          closeModal: mockCloseModal,
+        },
       }),
     ),
   };
@@ -23,7 +28,6 @@ jest.mock('@/presentation/store/useStore', () => {
 
 const props = {
   deletePayment: jest.fn(),
-  onCloseModal: jest.fn(),
 } as any;
 
 describe('Delete hook controller', () => {
@@ -53,5 +57,14 @@ describe('Delete hook controller', () => {
       expect(mockNotificationSuccess).toBeCalled();
     });
     await act(() => Promise.resolve());
+  });
+
+  it('should be able to close modal', async () => {
+    props.deletePayment.mockResolvedValueOnce();
+    const { result } = renderHook(() => useController(props));
+
+    result.current.onCloseModal();
+
+    expect(mockCloseModal).toBeCalled();
   });
 });
