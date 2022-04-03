@@ -14,9 +14,7 @@ const Component = (): JSX.Element => {
       <button type="button" onClick={() => modalRef.current?.closeModal()}>
         close modal
       </button>
-      <Modal title="Modal title" ref={modalRef}>
-        children
-      </Modal>
+      <Modal ref={modalRef}>children</Modal>
     </>
   );
 };
