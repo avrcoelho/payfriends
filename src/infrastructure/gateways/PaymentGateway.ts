@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import config from '@/shared/config.json';
 import {
   CreateParams,
@@ -37,9 +39,10 @@ export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
   }
 
   async create(params: CreateParams): Promise<Payment> {
+    const id = uuidv4();
     const { data } = await this.postRequest<Payment>({
       url: this.paymentUrl,
-      body: { ...params, id: String(Date.now()) },
+      body: { ...params, id },
       params: {
         _expand: 'user',
       },
