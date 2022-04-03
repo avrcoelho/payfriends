@@ -11,12 +11,18 @@ jest.mock('react-hook-notification', () => ({
   }),
 }));
 
+let mockModalType = 'create';
 jest.mock('@/presentation/store/useStore', () => {
   return {
     useStore: jest.fn(callback =>
       callback({
         onRefetch: jest.fn(),
         onUpdatePayment: jest.fn(),
+        payment: { id: '123' },
+        modalType: mockModalType,
+        modalRef: {
+          closeModal: jest.fn(),
+        },
       }),
     ),
   };
@@ -120,5 +126,22 @@ describe('Add or update hook controller', () => {
       expect(mockNotificationSuccess).toBeCalled();
     });
     await act(() => Promise.resolve());
+  });
+
+  it('should not be able to get payment to create', async () => {
+    props.updatePayment.mockResolvedValueOnce();
+    const { result } = renderHook(() => useController(props));
+    await act(() => Promise.resolve());
+
+    expect(result.current.paymentToUpdate).toBeUndefined();
+  });
+
+  it('should be able to get payment to update', async () => {
+    mockModalType = 'update';
+    props.updatePayment.mockResolvedValueOnce();
+    const { result } = renderHook(() => useController(props));
+    await act(() => Promise.resolve());
+
+    expect(result.current.paymentToUpdate).toHaveProperty('id');
   });
 });

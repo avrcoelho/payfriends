@@ -23,7 +23,6 @@ type UseControllerHookProps = {
   createPayment: typeof CreatePayment.prototype['execute'];
   updatePayment: typeof UpdatePayment.prototype['execute'];
   getUsers(): GetUsers;
-  onCloseModal(): void;
 };
 
 type UseControllerHook = (props: UseControllerHookProps) => {
@@ -32,13 +31,14 @@ type UseControllerHook = (props: UseControllerHookProps) => {
   errors: Partial<Record<keyof CreateParams, FieldError>>;
   register: UseFormRegister<CreateParams>;
   users: SelectOption[];
+  paymentToUpdate: Payment | undefined;
   onCreate(params: CreateParams): void;
   onUpdate(params: UpdateParams): void;
+  onCloseModal(): void;
 };
 
 export const useController: UseControllerHook = ({
   createPayment,
-  onCloseModal,
   updatePayment,
   getUsers,
 }) => {
@@ -46,6 +46,11 @@ export const useController: UseControllerHook = ({
   const notification = useNotification({ position: 'top-left' });
   const onUpdatePaymentStore = useStore(state => state.onUpdatePayment);
   const onRefetchStore = useStore(state => state.onRefetch);
+  const modalRef = useStore(state => state.modalRef);
+  const modalType = useStore(state => state.modalType);
+  const paymentToUpdate = useStore(state =>
+    modalType === 'update' ? state.payment : undefined,
+  );
   const paymentRef = useRef<Payment>();
 
   const {
@@ -117,6 +122,10 @@ export const useController: UseControllerHook = ({
     resetCreate,
   ]);
 
+  const onCloseModal = useCallback(() => {
+    modalRef?.closeModal();
+  }, [modalRef]);
+
   useEffect(() => {
     if (isSuccessCreate) {
       dispatchSuccessNotification('Pagamento adicionado!');
@@ -161,5 +170,7 @@ export const useController: UseControllerHook = ({
     errors,
     register,
     users: usersParsed,
+    paymentToUpdate,
+    onCloseModal,
   };
 };
