@@ -65,6 +65,7 @@ export const Input = styled.input`
   font-weight: 400;
   outline: none;
   background: transparent;
+  z-index: 1;
 
   ::placeholder {
     color: ${Colors.Grey};
