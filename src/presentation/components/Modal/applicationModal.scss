@@ -2,6 +2,12 @@
   overflow: hidden;
 }
 
+@media (max-width: 720px) {
+  .ReactModal__Content {
+    width: 100%;
+  }
+}
+
 .ReactModal__Overlay {
   opacity: 0;
   transition: opacity 200ms ease-in-out;
