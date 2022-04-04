@@ -16,18 +16,14 @@ import { PaymentMapper } from './mappers/PaymentMapper';
 export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
   private readonly paymentUrl = `${config.baseUrl}/payments`;
 
-  async get({
-    page,
-    limit,
-    searchByUserName = '',
-  }: GetParams): Promise<PaymentData> {
+  async get({ page, limit, search }: GetParams): Promise<PaymentData> {
     const { data, headers } = await this.getRequest<Payment[]>({
       url: this.paymentUrl,
       params: {
         _expand: 'user',
         _page: page,
         _limit: limit,
-        '_userPayment.name': searchByUserName,
+        userId_like: search,
       },
     });
     return { data, total: Number(headers['x-total-count']) };

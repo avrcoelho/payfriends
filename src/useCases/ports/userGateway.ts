@@ -7,6 +7,6 @@ export type SignInParams = {
 
 export interface UserGatewayPort {
   signIn(parans: SignInParams): Promise<User>;
-  get(): Promise<User[]>;
+  get(userName?: string): Promise<User[]>;
   getById(id: string): Promise<User>;
 }

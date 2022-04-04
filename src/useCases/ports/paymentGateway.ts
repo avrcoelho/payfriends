@@ -3,7 +3,7 @@ import { Payment } from '@/entities/Payment';
 export type GetParams = {
   page: number;
   limit: number;
-  searchByUserName?: string;
+  search?: string;
 };
 
 export type CreateParams = Omit<Payment, 'id' | 'user'> & {
