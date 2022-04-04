@@ -22,7 +22,7 @@ export const Container = styled.div`
   }
 `;
 
-export const InputsContainer = styled.form`
+export const InputsContainer = styled.div`
   display: grid;
   grid-template-columns: auto auto;
   gap: 4rem;

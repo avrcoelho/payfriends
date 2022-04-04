@@ -27,21 +27,27 @@
   ],
   "payments": [
     {
-      "id": "2",
+      "userId": "2",
+      "value": "7000",
+      "date": "2022-03-20",
       "title": "Boeleto Boeleto Boeleto Boeleto Boeleto Boeleto",
-      "userId": "1",
-      "status": true,
-      "value": 700,
-      "timestamp": 1648770538146
+      "id": "2",
+      "status": true
     },
     {
-      "id": "21",
-      "title": "Boeleto Boeleto Boeleto Boeleto Boeleto Boeleto",
-      "userId": "1",
-      "userPaymentId": "1",
-      "status": true,
-      "value": 700,
-      "timestamp": 1648770538146
+      "userId": "2",
+      "value": "700",
+      "date": "2022-03-20",
+      "title": "Test",
+      "id": "21"
+    },
+    {
+      "userId": "3",
+      "value": "1212.34",
+      "date": "2023-01-01",
+      "title": "Tets do andre",
+      "id": "196f63ca-fd01-41a2-9f73-100dbfa702ca",
+      "status": true
     }
   ]
 }
