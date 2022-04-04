@@ -11,6 +11,7 @@ import {
 } from '@/useCases/ports/paymentGateway';
 import { Payment } from '@/entities/Payment';
 import { HttpClient } from '../http/httpClient/HttpClient';
+import { PaymentMapper } from './mappers/PaymentMapper';
 
 export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
   private readonly paymentUrl = `${config.baseUrl}/payments`;
@@ -44,9 +45,10 @@ export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
 
   async create(params: CreateParams): Promise<Payment> {
     const id = uuidv4();
+    const parsedPayment = PaymentMapper.toDto(params);
     const { data } = await this.postRequest<Payment>({
       url: this.paymentUrl,
-      body: { ...params, id },
+      body: { ...parsedPayment, id },
       params: {
         _expand: 'user',
       },
@@ -55,9 +57,10 @@ export class PaymentGateway extends HttpClient implements PaymentGatewayPort {
   }
 
   async update(params: UpdateParams): Promise<Payment> {
+    const parsedPayment = PaymentMapper.toDto(params);
     const { data } = await this.putRequest<Payment>({
       url: `${this.paymentUrl}/${params.id}`,
-      body: params,
+      body: parsedPayment,
       params: {
         _expand: 'user',
       },

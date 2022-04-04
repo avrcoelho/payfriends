@@ -3,15 +3,15 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 import { Colors } from '@/presentation/constants/Colors';
 import { Container, InputContainer, ErrorText, Label } from '../Text/styles';
 import { Input } from './styles';
+import { InputHTMLAttributes } from 'react';
 
-type InputTextProps = {
+type InputTextProps = InputHTMLAttributes<HTMLInputElement> & {
   maskChar?: null;
   register?: UseFormRegisterReturn | {};
   error?: string;
   label?: string;
   parentBgColor?: string;
   className?: string;
-  name: string;
 };
 
 export const InputCurrency = ({
@@ -20,20 +20,20 @@ export const InputCurrency = ({
   label,
   parentBgColor = Colors.LightGrey1,
   className = '',
-  name,
+  ...restInpuProps
 }: InputTextProps): JSX.Element => {
   return (
     <Container className={className}>
       <InputContainer $hasError={!!error}>
         <Input
-          name="name"
           decimalSeparator=","
           thousandSeparator="."
           placeholder=" "
           {...register}
+          {...restInpuProps}
         />
         {!!label && (
-          <Label htmlFor={name} $parentBgColor={parentBgColor}>
+          <Label htmlFor={restInpuProps.name} $parentBgColor={parentBgColor}>
             {label}
           </Label>
         )}

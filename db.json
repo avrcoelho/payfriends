@@ -78,6 +78,20 @@
       "date": "2023-01-01",
       "title": "Tets do andre",
       "id": "e3eb8de5-af24-45a7-917b-75a931ad1ac0"
+    },
+    {
+      "userId": "1",
+      "value": "12,00",
+      "date": "01/01/2021",
+      "title": "53w",
+      "id": "ed8917df-037e-4a58-9f50-49f7eba0b702"
+    },
+    {
+      "userId": "1",
+      "value": 1234.55,
+      "date": "2030-02-01",
+      "title": "test 123",
+      "id": "3e76d172-1518-43e3-8347-1b99e11d7d2e"
     }
   ]
 }
