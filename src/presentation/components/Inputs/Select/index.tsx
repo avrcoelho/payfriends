@@ -29,6 +29,7 @@ export const InputSelect = ({
     <Container className={className}>
       <InputContainer $hasError={!!error}>
         <Select {...register} {...restInputProps}>
+          {!!label && <option value="">Selecione</option>}
           {options.map(option => (
             <option key={String(option.value)} value={String(option.value)}>
               {option.label}
