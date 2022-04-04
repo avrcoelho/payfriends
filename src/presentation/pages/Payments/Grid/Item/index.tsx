@@ -45,7 +45,7 @@ const Component = ({
       <Column>
         <InputChackbox
           onChange={() => onUpdateStatus(payment)}
-          checked={payment.status ?? false}
+          checked={!!payment.status}
         />
       </Column>
       <Column>

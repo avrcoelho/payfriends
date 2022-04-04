@@ -1,3 +1,5 @@
+import { Controller } from 'react-hook-form';
+
 import { CreatePayment } from '@/useCases/CreatePayment';
 import { UpdatePayment } from '@/useCases/updatePayment';
 import { GetUsers } from '@/useCases/GetUsers';
@@ -6,7 +8,6 @@ import { InputSelect } from '@/presentation/components/Inputs/Select';
 import { Colors } from '@/presentation/constants/Colors';
 import { Container, ButtonsContainer, InputsContainer, Button } from './styles';
 import { useController } from './useController';
-import { Controller } from 'react-hook-form';
 
 type CreateOrUpdateProps = {
   createPayment: typeof CreatePayment.prototype['execute'];
