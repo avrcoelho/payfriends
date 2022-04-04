@@ -17,7 +17,7 @@ const paymentResponse = {
   id: '7',
   title: 'Boeleto',
   value: 700,
-  timestamp: Date.now(),
+  date: '2022-03-20',
   status: true,
 };
 
@@ -46,7 +46,7 @@ describe('Create payment use case', () => {
     const payment = await createPayment.execute({
       title: 'Boeleto',
       status: false,
-      timestamp: Date.now(),
+      date: '2022-03-20',
       value: 700,
       userId: '7',
     });

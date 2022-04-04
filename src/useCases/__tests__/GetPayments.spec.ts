@@ -17,7 +17,7 @@ const paymentResponse = {
   id: '7',
   title: 'Boeleto',
   value: 700,
-  timestamp: Date.now(),
+  date: '2022-03-20',
   status: true,
 };
 
@@ -46,7 +46,6 @@ describe('Get payments use case', () => {
     const paymentsData = await getPayments.execute({
       limit: 5,
       page: 1,
-      userId: '7',
     });
 
     expect(paymentsData.data).toHaveLength(1);
