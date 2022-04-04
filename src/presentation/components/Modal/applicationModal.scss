@@ -6,6 +6,7 @@
   opacity: 0;
   transition: opacity 200ms ease-in-out;
   overflow: auto !important;
+  z-index: 3;
 }
 .ReactModal__Overlay--after-open {
   opacity: 1;
