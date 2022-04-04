@@ -23,7 +23,7 @@ const payment = {
   id: '7',
   title: 'Boeleto',
   value: 700,
-  timestamp: Date.now(),
+  date: '2022-03-20',
   status: true,
 } as Payment;
 

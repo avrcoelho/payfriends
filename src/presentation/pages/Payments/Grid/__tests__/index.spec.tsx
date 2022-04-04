@@ -19,10 +19,11 @@ const props = {
   payments: [
     {
       user,
+      userId: '1',
       title: 'Boeleto',
       id: '7',
       value: 700,
-      timestamp: Date.now(),
+      date: '2022-03-20',
       status: true,
     },
   ],

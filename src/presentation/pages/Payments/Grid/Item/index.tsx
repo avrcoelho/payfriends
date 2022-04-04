@@ -36,8 +36,8 @@ const Component = ({
         <span title={payment.title}>{payment.title}</span>
       </Column>
       <Column>
-        <span>{formatDate(payment.timestamp)}</span>
-        <small>{formatHour(payment.timestamp)}</small>
+        <span>{formatDate(payment.date)}</span>
+        <small>{formatHour(payment.date)}</small>
       </Column>
       <Column>
         <span title={valueFormated}>{valueFormated}</span>
@@ -45,7 +45,7 @@ const Component = ({
       <Column>
         <InputChackbox
           onChange={() => onUpdateStatus(payment)}
-          checked={payment.status}
+          checked={payment.status ?? false}
         />
       </Column>
       <Column>

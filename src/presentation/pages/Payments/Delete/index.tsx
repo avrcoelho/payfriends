@@ -23,7 +23,7 @@ export const Delete = ({ deletePayment }: DeleteProps): JSX.Element | null => {
       <h3>Excluir pagamento</h3>
 
       <p>Usuário: {payment?.user.name}</p>
-      <p>Data: {formatDate(payment?.timestamp)}</p>
+      <p>Data: {formatDate(payment?.date)}</p>
       <p>Valor: {formatValue(payment?.value)}</p>
 
       <ButtonsContainer>
