@@ -36,7 +36,7 @@ describe('useStore', () => {
         },
         id: '7',
         value: 700,
-        timestamp: Date.now(),
+        date: '2022-03-20',
         status: true,
       },
       {
@@ -45,7 +45,7 @@ describe('useStore', () => {
         },
         id: '0',
         value: 700,
-        timestamp: Date.now(),
+        date: '2022-03-20',
         status: true,
       },
     ],
@@ -122,6 +122,7 @@ describe('useStore', () => {
 
     expect(result.current.payment?.id).toBe('7');
   });
+
   it('should be able to set modalRef', () => {
     const { result } = renderHook(() => useStore());
 
@@ -133,5 +134,15 @@ describe('useStore', () => {
     });
 
     expect(result.current.modalRef).toHaveProperty('closeModal');
+  });
+
+  it('should be able to set modal type', () => {
+    const { result } = renderHook(() => useStore());
+
+    act(() => {
+      result.current.onSetModalType('create');
+    });
+
+    expect(result.current.modalType).toBe('create');
   });
 });

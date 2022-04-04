@@ -24,6 +24,7 @@ type StoreState = {
   onDeletePayment(paymentId: string): void;
   onUpdatePaymentStatus(props: PaymentStatusProps): void;
   onGetPayment(paymentId: string, type: ModalType): void;
+  onSetModalType(type: ModalType): void;
   onSetModalRef(modalRef: ModalHandles | null): void;
   onDeleteUserId(): void;
 };
@@ -49,6 +50,9 @@ export const useStore = create<StoreState>(set => ({
   },
   onSetModalRef: modalRef => {
     set(state => ({ ...state, modalRef }));
+  },
+  onSetModalType: modalType => {
+    set(state => ({ ...state, modalType, payment: undefined }));
   },
   onUpdatePayment: payment => {
     set(state => ({
