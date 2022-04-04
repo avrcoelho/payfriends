@@ -16,6 +16,9 @@ export class GetPayments {
     if (search) {
       const users = await this.getUsers.execute(search);
       usersId = users.map(user => user.id).join('|');
+      if (!usersId) {
+        return { data: [], total: 0 };
+      }
     }
     const paymentsData = await this.paymentGateway.get({
       ...restParams,

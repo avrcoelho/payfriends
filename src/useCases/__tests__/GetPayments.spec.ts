@@ -69,4 +69,15 @@ describe('Get payments use case', () => {
 
     expect(paymentsData.data).toHaveLength(1);
   });
+
+  it('should not be able to get payments when user nme not found', async () => {
+    jest.spyOn(getUsers, 'execute').mockResolvedValueOnce([]);
+    const paymentsData = await getPayments.execute({
+      limit: 5,
+      page: 1,
+      search: 'test',
+    });
+
+    expect(paymentsData.data).toHaveLength(0);
+  });
 });

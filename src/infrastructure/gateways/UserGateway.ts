@@ -16,9 +16,12 @@ export class UserGateway extends HttpClient implements UserGatewayPort {
     return user;
   }
 
-  async get(): Promise<User[]> {
+  async get(userName?: string): Promise<User[]> {
     const { data } = await this.getRequest<User[]>({
       url: this.userUrl,
+      params: {
+        name_like: userName,
+      },
     });
     return data;
   }
