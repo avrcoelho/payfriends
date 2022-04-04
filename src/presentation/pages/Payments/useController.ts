@@ -29,6 +29,7 @@ type UseControllerHook = (props: UseControllerHookProps) => {
   modalRef: RefObject<ModalHandles>;
   onUpdateLimit(value: number): void;
   onUpdatePage(value: number): void;
+  onOpenModalToCreate(): void;
 };
 
 export const useController: UseControllerHook = ({ getUser, getPayments }) => {
@@ -42,6 +43,7 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
   const onRefetchStore = useStore(state => state.onRefetch);
   const paymentsData = useStore(state => state.paymentsData);
   const onSetModalRef = useStore(state => state.onSetModalRef);
+  const onSetModalType = useStore(state => state.onSetModalType);
   const modalType = useStore(state => state.modalType);
   const paymentSelected = useStore(state => state.payment);
   const modalRef = useRef<ModalHandles>(null);
@@ -119,6 +121,11 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
     [onUpdatePage],
   );
 
+  const onOpenModalToCreate = useCallback(() => {
+    onSetModalType('create');
+    modalRef.current?.openModal();
+  }, [onSetModalType]);
+
   const hasPaymentsData = !!Object.keys(paymentsData).length;
 
   return {
@@ -134,5 +141,6 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
     modalType,
     paymentSelected,
     modalRef,
+    onOpenModalToCreate,
   };
 };

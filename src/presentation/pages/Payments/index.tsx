@@ -5,6 +5,9 @@ import { Header } from '@/presentation/components/Header';
 import { UpdatePaymentStatus } from '@/useCases/UpdatePaymentStatus';
 import { Modal } from '@/presentation/components/Modal';
 import { SignOut } from '@/useCases/SignOut';
+import { GetUsers } from '@/useCases/GetUsers';
+import { UpdatePayment } from '@/useCases/updatePayment';
+import { CreatePayment } from '@/useCases/CreatePayment';
 import { useController } from './useController';
 import {
   Container,
@@ -16,12 +19,16 @@ import {
 import { Controls } from './Controls';
 import { Grid } from './Grid';
 import { Delete } from './Delete';
+import { CreateOrUpdate } from './CreateOrUpdate';
 
 type PaymentsProps = {
   getUser(): GetUser;
+  getUsers(): GetUsers;
   getPayments(): GetPayments;
   signOut(): SignOut;
   updatePaymentStatus: typeof UpdatePaymentStatus.prototype['execute'];
+  updatePayment: typeof UpdatePayment.prototype['execute'];
+  createPayment: typeof CreatePayment.prototype['execute'];
   deletePayment: typeof DeletePayment.prototype['execute'];
 };
 
@@ -31,6 +38,9 @@ export const Payments = ({
   updatePaymentStatus,
   deletePayment,
   signOut,
+  createPayment,
+  getUsers,
+  updatePayment,
 }: PaymentsProps): JSX.Element => {
   const {
     user,
@@ -42,6 +52,7 @@ export const Payments = ({
     hasPaymentsData,
     modalType,
     modalRef,
+    onOpenModalToCreate,
   } = useController({
     getPayments,
     getUser,
@@ -55,7 +66,7 @@ export const Payments = ({
           {hasPaymentsData && !!paymentsData && (
             <>
               <Title>Meus pagamentos</Title>
-              <ButtonAddPayment type="button">
+              <ButtonAddPayment type="button" onClick={onOpenModalToCreate}>
                 Adicionar pagamento
               </ButtonAddPayment>
 
@@ -80,6 +91,13 @@ export const Payments = ({
 
       <Modal ref={modalRef}>
         {modalType === 'delete' && <Delete deletePayment={deletePayment} />}
+        {['create', 'update'].includes(modalType as string) && (
+          <CreateOrUpdate
+            createPayment={createPayment}
+            updatePayment={updatePayment}
+            getUsers={getUsers}
+          />
+        )}
       </Modal>
     </>
   );

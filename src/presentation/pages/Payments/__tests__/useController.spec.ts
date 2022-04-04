@@ -12,6 +12,7 @@ jest.mock('react-hook-notification', () => ({
 let mockPaymentsData = {};
 let mockHasRefetch = false;
 const mockOnRefetch = jest.fn();
+const mockOnSetModalType = jest.fn();
 jest.mock('@/presentation/store/useStore', () => {
   return {
     useStore: jest.fn(callback =>
@@ -26,6 +27,7 @@ jest.mock('@/presentation/store/useStore', () => {
         hasRefetch: mockHasRefetch,
         payment: undefined,
         modalType: undefined,
+        onSetModalType: mockOnSetModalType,
       }),
     ),
   };
@@ -131,5 +133,15 @@ describe('Payments page hook controller', () => {
     await act(() => Promise.resolve());
 
     expect(mockOnRefetch).toBeCalled();
+  });
+
+  it('should be able open modal to create payment', async () => {
+    mockGetUserExecute.mockResolvedValueOnce(user);
+    const { result } = renderHook(() => useController(props));
+    await act(() => Promise.resolve());
+
+    result.current.onOpenModalToCreate();
+
+    expect(mockOnSetModalType).toBeCalled();
   });
 });
