@@ -35,6 +35,7 @@ export const Controls = ({
         <FiSearch size={20} color={Colors.SecondaryText} />
         <InputSearch
           placeholder="Pesquisar por usuário"
+          value={search}
           onChange={event => onSetSearch(event.target.value)}
         />
       </SearchContainer>
