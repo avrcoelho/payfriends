@@ -6,6 +6,8 @@ import { GetUsers } from '@/useCases/GetUsers';
 import { InputText } from '@/presentation/components/Inputs/Text';
 import { InputSelect } from '@/presentation/components/Inputs/Select';
 import { Colors } from '@/presentation/constants/Colors';
+import { InputMask } from '@/presentation/components/Inputs/Mask';
+import { InputCurrency } from '@/presentation/components/Inputs/Currency';
 import { Container, ButtonsContainer, InputsContainer, Button } from './styles';
 import { useController } from './useController';
 
@@ -57,15 +59,24 @@ export const CreateOrUpdate = ({
                 />
               )}
             />
-            <InputText
-              register={register('value')}
-              label="Valor"
-              error={errors?.value?.message}
-              parentBgColor={Colors.White}
+            <Controller
+              name="value"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <InputCurrency
+                  label="Valor"
+                  error={errors?.value?.message}
+                  parentBgColor={Colors.White}
+                  value={value}
+                  onChange={onChange}
+                />
+              )}
             />
-            <InputText
+            <InputMask
+              mask="99/99/9999"
               register={register('date')}
               label="Data"
+              maskChar={null}
               error={errors?.date?.message}
               parentBgColor={Colors.White}
             />
