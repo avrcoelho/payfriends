@@ -1,4 +1,12 @@
-import { useCallback, useEffect, useRef, useState, RefObject } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  RefObject,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import { useNotification } from 'react-hook-notification';
 
 import { User } from '@/entities/User';
@@ -10,6 +18,7 @@ import { useQuery } from '@/presentation/hooks/useQuery';
 import { useStore } from '@/presentation/store/useStore';
 import { ModalType } from '@/presentation/types/ModalType';
 import { ModalHandles } from '@/presentation/components/Modal';
+import { useDebouncedValue } from '@/presentation/hooks/useDebouncedValue';
 
 type UseControllerHookProps = {
   getUser: () => GetUser;
@@ -27,6 +36,8 @@ type UseControllerHook = (props: UseControllerHookProps) => {
   modalType: ModalType;
   paymentSelected: Payment | undefined;
   modalRef: RefObject<ModalHandles>;
+  search: string;
+  onSetSearch(value: string): void;
   onUpdateLimit(value: number): void;
   onUpdatePage(value: number): void;
   onOpenModalToCreate(): void;
@@ -35,6 +46,8 @@ type UseControllerHook = (props: UseControllerHookProps) => {
 export const useController: UseControllerHook = ({ getUser, getPayments }) => {
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
+  const searchValueDebounced = useDebouncedValue(search);
 
   const notification = useNotification({ position: 'top-left' });
   const userId = useStore(state => state.userId);
@@ -60,9 +73,12 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
     isLoading: isLoadingPayments,
     data,
     refetch,
-  } = useQuery(() => getPayments().execute({ limit, page }), {
-    manualFetch: true,
-  });
+  } = useQuery(
+    () => getPayments().execute({ limit, page, search: searchValueDebounced }),
+    {
+      manualFetch: true,
+    },
+  );
 
   const dispatchErrorNotification = useCallback(
     (message: string) => {
@@ -90,7 +106,7 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
     if (user) {
       refetch();
     }
-  }, [user, refetch, limit, page]);
+  }, [user, refetch, limit, page, searchValueDebounced]);
 
   useEffect(() => {
     if (hasRefetch) {
@@ -126,7 +142,15 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
     modalRef.current?.openModal();
   }, [onSetModalType]);
 
+  const onSetSearch = useCallback((value: string) => {
+    setSearch(value);
+  }, []);
+
   const hasPaymentsData = !!Object.keys(paymentsData).length;
+
+  useEffect(() => {
+    onUpdatePage(1);
+  }, [searchValueDebounced, onUpdatePage]);
 
   return {
     isLoadingUser,
@@ -142,5 +166,7 @@ export const useController: UseControllerHook = ({ getUser, getPayments }) => {
     paymentSelected,
     modalRef,
     onOpenModalToCreate,
+    onSetSearch,
+    search,
   };
 };

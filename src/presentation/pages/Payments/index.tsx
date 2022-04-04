@@ -53,6 +53,8 @@ export const Payments = ({
     modalType,
     modalRef,
     onOpenModalToCreate,
+    search,
+    onSetSearch,
   } = useController({
     getPayments,
     getUser,
@@ -75,8 +77,10 @@ export const Payments = ({
                   limit={limit}
                   page={page}
                   total={paymentsData.total}
+                  search={search}
                   onUpdateLimit={onUpdateLimit}
                   onUpdatePage={onUpdatePage}
+                  onSetSearch={onSetSearch}
                 />
 
                 <Grid

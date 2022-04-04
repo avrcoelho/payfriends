@@ -30,8 +30,8 @@ export const Container = styled.div`
     }
   }
 
-  @media (max-width: 500px) {
-    min-width: 100%;
+  @media (max-width: 720px) {
+    width: 100%;
   }
 `;
 
@@ -40,6 +40,10 @@ export const ButtonsContainer = styled.div`
   justify-content: space-between;
 
   margin-top: 5.2rem;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
 `;
 
 export const Button = styled(ButtonDefault)`
@@ -48,5 +52,13 @@ export const Button = styled(ButtonDefault)`
   &.cancel {
     background-color: ${Colors.LightGrey3};
     color: ${Colors.GrayScale};
+  }
+
+  @media (max-width: 500px) {
+    margin-left: 0;
+
+    + button {
+      margin-top: 2rem;
+    }
   }
 `;

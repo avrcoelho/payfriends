@@ -17,8 +17,8 @@ export const Container = styled.div`
     margin-bottom: 4.721rem;
   }
 
-  @media (max-width: 500px) {
-    min-width: 100%;
+  @media (max-width: 720px) {
+    width: 100%;
   }
 `;
 
@@ -43,6 +43,10 @@ export const ButtonsContainer = styled.div`
   justify-content: space-between;
   margin-top: 5.2rem;
   margin-left: auto;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
 `;
 
 export const Button = styled(ButtonDefault)`
@@ -55,5 +59,12 @@ export const Button = styled(ButtonDefault)`
   &.cancel {
     background-color: ${Colors.LightGrey3};
     color: ${Colors.GrayScale};
+  }
+
+  @media (max-width: 500px) {
+    + button {
+      margin-left: 0;
+      margin-top: 2rem;
+    }
   }
 `;

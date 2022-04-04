@@ -13,6 +13,8 @@ import {
 type ControlsProps = {
   onUpdateLimit(limit: number): void;
   onUpdatePage(page: number): void;
+  onSetSearch(value: string): void;
+  search: string;
   limit: number;
   page: number;
   total: number;
@@ -24,12 +26,17 @@ export const Controls = ({
   onUpdatePage,
   page,
   total,
+  onSetSearch,
+  search,
 }: ControlsProps): JSX.Element => {
   return (
     <Container>
       <SearchContainer>
         <FiSearch size={20} color={Colors.SecondaryText} />
-        <InputSearch placeholder="Pesquisar por usuário" />
+        <InputSearch
+          placeholder="Pesquisar por usuário"
+          onChange={event => onSetSearch(event.target.value)}
+        />
       </SearchContainer>
       <PaginationAndLimitContainer>
         <SelectLimitPerPage onChange={onUpdateLimit} currentLimit={limit} />

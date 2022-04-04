@@ -33,6 +33,8 @@ jest.mock('@/presentation/store/useStore', () => {
   };
 });
 
+jest.useFakeTimers();
+
 const user = {
   id: '7',
   name: 'John Doe',
@@ -143,5 +145,21 @@ describe('Payments page hook controller', () => {
     result.current.onOpenModalToCreate();
 
     expect(mockOnSetModalType).toBeCalled();
+  });
+
+  it('should be able to change search value', async () => {
+    mockGetUserExecute.mockResolvedValueOnce(user);
+    const { result } = renderHook(() => useController(props));
+    await act(() => Promise.resolve());
+
+    act(() => {
+      result.current.onSetSearch('test');
+    });
+    act(() => {
+      jest.advanceTimersByTime(500);
+    });
+
+    expect(result.current.search).toBe('test');
+    await act(() => Promise.resolve());
   });
 });

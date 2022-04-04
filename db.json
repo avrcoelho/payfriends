@@ -36,11 +36,11 @@
     },
     {
       "userId": "3",
-      "value": "700",
-      "date": "2022-03-20",
-      "title": "Test",
+      "value": 700,
+      "date": "20-03-2022",
+      "title": "Test2",
       "id": "21",
-      "status": true
+      "status": false
     },
     {
       "userId": "3",
@@ -92,6 +92,13 @@
       "date": "2030-02-01",
       "title": "test 123",
       "id": "3e76d172-1518-43e3-8347-1b99e11d7d2e"
+    },
+    {
+      "userId": "2",
+      "value": 234,
+      "date": "2022-08-22",
+      "title": "Completed",
+      "id": "8fe0fb3b-af3e-4da9-af72-06f24b434e93"
     }
   ]
 }
