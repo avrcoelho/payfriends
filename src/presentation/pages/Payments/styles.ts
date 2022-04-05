@@ -6,11 +6,11 @@ import { ButtonDefault } from '@/presentation/components/Buttons/Default';
 export const Container = styled.main`
   width: 100%;
   min-height: 100vh;
-  padding: 15.5rem 1rem 0;
+  padding: 15.5rem 1rem 8rem;
   background: ${Colors.LightGrey1};
 
   @media (max-width: 940px) {
-    padding: 11.5rem 1rem 0;
+    padding: 11.5rem 1rem 6rem;
   }
 `;
 
