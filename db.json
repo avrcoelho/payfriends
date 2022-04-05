@@ -14,7 +14,7 @@
       "nickname": "cbrown",
       "email": "chris@test.com",
       "password": "123456",
-      "avatar": "https://githug.com/avrcoelho.png"
+      "avatar": "https://github.com/avrcoelho.png"
     },
     {
       "id": "11d5f7c8-b46a-11ec-b909-0242ac120002",
@@ -22,7 +22,7 @@
       "nickname": "johndoe",
       "email": "johndoe@test.com",
       "password": "123456",
-      "avatar": "https://githug.com/avrcoelho.png"
+      "avatar": "https://github.com/avrcoelho.png"
     },
     {
       "id": "087f66aa-b46a-11ec-b909-0242ac120002",
@@ -30,7 +30,7 @@
       "nickname": "johndoe",
       "email": "johndoe@test.com",
       "password": "123456",
-      "avatar": "https://githug.com/avrcoelho.png"
+      "avatar": "https://github.com/avrcoelho.png"
     }
   ],
   "payments": [
